@@ -1,0 +1,24 @@
+<h1>Listing of Commission</h1>
+<table class="table table-striped custom-table table-hover">
+  <tr>
+    <th>no</th>
+    <th>Commission Percentage</th>
+    <% #if policy(@categories).edit? %>
+      <!-- <th colspan="2">Action</th>
+ -->    <%#end%>
+  </tr>
+  <%@commissions.each_with_index do |commission,index|%>
+    <tr>
+      <td><%= index+1%></td>
+      <td><%=commission.commission_percentage %></td>
+      <td>
+        <% #if policy(commission).edit? %>
+          <%= link_to '', edit_commission_setting_path(commission), class: "btn btn-primary btn-xs fa fa-pencil", remote: true %>
+        <%#end%>
+        <% #if policy(commission).destroy? %>
+          <%= link_to '', commission_setting_path(commission), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+        <%#end%>
+      </td>
+    </tr>
+  <%end%>
+</table>

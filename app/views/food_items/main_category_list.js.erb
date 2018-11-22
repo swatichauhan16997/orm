@@ -1,0 +1,11 @@
+$("#main-categories-list").html("<%= escape_javascript(render partial: 'food_main_categories', locals: {restaurant: @restaurant})%>");
+$("#food_item_category_id").on("change", function(){
+  $.ajax({
+    url: "/category_list",
+    method: 'GET',
+    data: {
+      id: $(this).val()
+    },
+    type: 'script'
+  });
+});

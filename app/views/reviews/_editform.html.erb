@@ -1,0 +1,10 @@
+<div class="customer-review_wrap">
+  <div class="customer-content-wrap">
+    <p class="customer-text">
+      <%= form_for review, url: review_update_review_path(review), method: :patch, remote: true do |f|%>
+        <%= f.text_field :comment, :value => review.comment %>
+        <span><%= f.submit "Update" %></span><br>
+      <% end %>  
+    </p>
+  </div>
+</div>

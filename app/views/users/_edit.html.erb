@@ -1,0 +1,41 @@
+<div class="content clearfix">
+  <div class="form-group clearfix formbackground">
+  
+    <%= form_tag updateprofile_user_path(user) , method: :patch, class: 'form-horizontal', remote: true, multipart: true do %>
+    
+      <div class="field">
+        <%= label_tag :first_name %>
+        <%= text_field_tag :firstname, user.firstname  %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :last_name %>
+        <%= text_field_tag :lastname, user.lastname %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :user_name %>
+        <%= text_field_tag :username, user.username %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :email%>
+        <%= email_field_tag :email, user.email %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :phone_no %>
+        <%= text_field_tag :phoneno, user.phoneno%>
+      </div>
+      
+      <div class="field">
+        <%= label_tag :image %>
+        <%= file_field_tag :image %>
+      </div> 
+
+      <div class="actions">
+        <%= submit_tag "Update" %>
+      </div>
+    <% end %>
+  </div>
+</div>

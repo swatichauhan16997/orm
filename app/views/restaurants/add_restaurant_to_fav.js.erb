@@ -1,0 +1,1 @@
+$("#restaurant-item-<%= @restaurant.id %>").html("<%= escape_javascript( render partial: 'restaurants/restaurant_detail', locals: {restaurant: @restaurant} )%>");

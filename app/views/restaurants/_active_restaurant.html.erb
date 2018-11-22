@@ -1,0 +1,63 @@
+<div class="tab-content">
+  <div id="restaurant" class="tab-pane fade in active">
+    <h3></h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          Restaurant
+      </header>
+      <% if @restaurants == [] %>
+        <h3>You haven't added any restaurants </h3>
+      <% else %>
+        <table class="table table-striped custom-table table-hover">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Restaurant Name</th>
+              <th>Phone No </th>
+              <th>Email</th>
+              <th>Opening Time</th>
+              <th>Closing Time</th>
+              <th>Branch Name</th>
+              <% if current_user.has_role? :super_admin %>
+                <th>Status</th>
+              <%end%>  
+              <th class="hidden-xs"> Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @restaurants.each do |restaurant| %>
+              <tr>
+                <td><%= image_tag(restaurant.image.url, alt:'Image', class: "user-img") if restaurant.image? %></td>
+                <td><%= restaurant.full_name %></td>
+                <td><%= restaurant.phone_no %></td>
+                <td><%= restaurant.email %></td>
+                <td><%= restaurant.opening_time %></td>
+                <td><%= restaurant.closing_time %></td>
+                <td><%= restaurant.branch_name %></td>
+                
+                <% if current_user.has_role? :super_admin %>
+                  <td>
+                    <% if restaurant.status == true  %>
+                      <label class="switch" id ="status-<%= restaurant.id %>">
+                        <%= render partial: "active_status", locals: {restaurant: restaurant}%>
+                      </label>
+                    <% else %>
+                      <label class="switch" id ="status-<%= restaurant.id %>" >
+                        <%= render partial: "inactive_status", locals: {restaurant: restaurant}%>
+                      </label>
+                    <% end %>
+                  </td>
+                <% end %>
+                <td class="hidden-xs">
+                  <%= link_to '', show_rest_restaurant_path(restaurant), class: "btn btn-success btn-xs fa fa-check", remote: true %>
+                  <%= link_to "", edit_restaurant_path(restaurant), class: "btn btn-primary btn-xs fa fa-pencil" , remote: true%>
+                  <%= link_to "", restaurant_path(restaurant), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+                </td>
+              </tr> 
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </section>
+  </div>
+</div>

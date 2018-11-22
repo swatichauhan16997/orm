@@ -1,0 +1,25 @@
+<%= link_to offer_path(offer) do %>
+<div class="single-unique-product">
+  <%#= image_tag(offer.image.url) if restaurant.image? %>
+  <div class="featured-title-box">
+    <h6>  
+      <%= offer.restaurant.full_name %>
+    </h6>
+    <ul>
+      <li>
+        <span><i class="fa fa-certificate"></i></span>
+        <p><%= offer.discount %> % off on <%= offer.food_item.name %></p>
+      </li>
+    </ul>
+    <a class="text-uppercase primary-btn">APPLY</a>
+    <div class="bottom-icons">
+      <% if offer.end_date < Date.today %>
+      <div class="closed-now">Not valid</div>
+      <%else%>
+      <div class="open-now">Valid</div>
+      <%end%>
+    </div>
+  </div>
+</div>
+<% end %>
+

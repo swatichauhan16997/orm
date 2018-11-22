@@ -1,0 +1,27 @@
+<h1>Category available in restaurant</h1>
+<table class="table table-striped custom-table table-hover">
+  <tr>
+    <th>Branch Name</th>
+    <th>Categories</th>
+    <th colspan="2">action</th>
+  </tr> 
+  <% @restaurants.each do |restaurant| %>
+    <tr>
+      <td>
+        <%= restaurant.full_name %>
+      </td>
+      <%counter=0%>
+      <td>
+        <ul>
+        <% restaurant.categories.each do |category| %>
+          <li><%=category.name%></li>
+          <%counter+=1%>
+        <%end%>
+      </li>
+      </td>
+      <td><%= link_to '',restaurantscategory_path(restaurant),class: "btn btn-success btn-xs fa fa-check", remote: true%>
+      <%= link_to '', edit_restaurantscategory_path(restaurant), class: "btn btn-primary btn-xs fa fa-pencil", remote: true  %>
+    </td>
+    </tr>
+  <%end%> 
+</table>

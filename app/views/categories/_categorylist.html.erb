@@ -1,0 +1,24 @@
+<h1>Listing of category</h1>
+<table class="table table-striped custom-table table-hover">
+  <tr>
+    <th>no</th>
+    <th>Category name</th>
+    <% if policy(@categories).edit? %>
+      <th colspan="2">Action</th>
+    <%end%>
+  </tr>
+  <%@categories.each_with_index do |category,index|%>
+    <tr>
+      <td><%= index+1%></td>
+      <td><%=category.name %></td>
+      <td>
+        <% if policy(category).edit? %>
+          <%= link_to '', edit_category_path(category), class: "btn btn-primary btn-xs fa fa-pencil", remote: true  %>
+        <%end%>
+        <% if policy(category).destroy? %>
+          <%= link_to '', category_path(category), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+        <%end%>
+      </td>
+    </tr>
+  <%end%>
+</table>

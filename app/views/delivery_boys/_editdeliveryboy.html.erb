@@ -1,0 +1,37 @@
+<h2>Edit</h2>
+
+<%= form_for @delivery_boy, :url=> url_for(controller: 'delivery_boys', action: 'update'), remote: true do |f| %>
+  
+  <% if @delivery_boy.errors.any? %>
+    <%= render partial: 'shared/errors', locals: {resource: @delivery_boy} %>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :firstname, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :lastname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_name %><br />
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phoneno %><br />
+    <%= f.text_field :phoneno %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Edit" %>
+  </div>
+<% end %>

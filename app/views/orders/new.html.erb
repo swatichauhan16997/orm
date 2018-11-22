@@ -1,0 +1,12 @@
+<h1>New Order</h1>
+<%= form_for @order do |order|%>
+	<%= order.label:order_datetime%>
+	<%= order.datetime_select:order_datetime%></br>
+	<%= order.label:food_item%>
+	<%= order.collection_select :food_item_id, FoodItem.order(:id), :id,:name %> </br>
+	<%= order.label:quantity%>
+	<%= order.number_field:quantity,min:1%></br>
+	
+	<%= order.submit%>
+<%end%>
+ 

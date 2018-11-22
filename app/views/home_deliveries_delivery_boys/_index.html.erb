@@ -1,0 +1,83 @@
+<div id="customer" class="">
+    <h3>new</h3>
+  <section class="panel">
+    <header class="panel-heading head-border">
+        Home Deliveries details
+    </header>
+    <% cnt = 0 %>
+    <%if current_user.has_role? "customer"
+        @home_deliveries.each do |home_delivery|
+          if home_delivery.master_order.user_id == current_user.id
+            cnt = cnt + 1
+          end
+        end
+    elsif current_user.has_role? "super_admin"
+      cnt = 0
+      @home_deliveries.each do |home_delivery|
+        if @home_deliveries == []
+          cnt = 0
+        else
+          cnt = 1
+        end
+      end
+    elsif current_user.has_role? "admin"
+      cnt = 0 
+      @home_deliveries.each do |home_delivery|
+        if current_user.restaurants.include?(home_delivery.master_order.restaurant_id)
+          cnt = 1
+        end
+      end
+    end 
+    %>
+    <% if cnt == 0 %>
+      <h3>No Home-deliveries</h3>
+    <% else %>
+      <table class="table table-striped custom-table table-hover">
+        <thead>
+          <tr>
+            <th>order</th>
+            <th>home delivery status</th>
+            <th>home delivery boy</th>
+            <th>delivery boy phone no</th>
+          </tr>
+          <% @home_deliveries.each do |home_delivery|%>
+            <tr>
+              <%if current_user.has_role? "customer"%>
+                <%if home_delivery.master_order.user_id == current_user.id%>
+                  <td><%= home_delivery.master_order.id %></td>
+                  <td><%= home_delivery.status %></td>
+                  <td><% unless home_delivery.delivery_boys == [] %>
+                    <%= home_delivery.delivery_boys.first.username %></td>
+                  <td><%= home_delivery.delivery_boys.first.phoneno %></td>
+                <%end%>
+              <%end%><br>
+              </tr>
+              
+              <% elsif current_user.has_role? "super_admin"%>
+                <td><%= home_delivery.master_order.id %></td>
+                <td><%= home_delivery.status %></td>
+                <td><% unless home_delivery.delivery_boys == [] %>
+                <%= home_delivery.delivery_boys.first.username %></td>
+                <td><%= home_delivery.delivery_boys.first.phoneno %></td>
+                <%else%>
+                  <%= link_to "assign", new_home_deliveries_delivery_boy_path(home_delivery: home_delivery)%>
+                <%end%><br>
+                </tr>
+
+              <%else%>
+                <%if current_user.restaurants.include?(home_delivery.master_order.restaurant_id)%>
+                  <td><%= home_delivery.master_order.id %></td>
+                  <td><%= home_delivery.status %></td>
+                  <td><% unless home_delivery.delivery_boys == [] %>
+                  <%= home_delivery.delivery_boys.first.username %></td>
+                  <td><%= home_delivery.delivery_boys.first.phoneno %></td>
+                  <%end%>
+                  <%end%><br>
+                </tr>
+              <%end%>
+            <%end%>
+          </tbody>
+      </table>
+    <% end %>
+  </section>
+</div> 

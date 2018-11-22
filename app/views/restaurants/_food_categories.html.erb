@@ -1,0 +1,3 @@
+<% st = defined?(category) ? category : FoodCategory.first %>
+<%= label_tag :food_category_id %><br>
+<%= select_tag "food_item[food_category_id]",  options_from_collection_for_select(FoodCategory.where(category_id: st), "id", "name") %>

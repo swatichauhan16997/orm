@@ -1,0 +1,18 @@
+<h1>My Orders</h1>
+<table border="5dp">
+<% @orders.each do |order|%>
+<tr>
+	<td><%= order.order_datetime%></td>
+	<td><%= order.quantity%></td>
+  <td><%= order.food_item.name%></td>
+  <% if order.quantity!=nil%>
+	<td><%= (order.food_item.price)*(order.quantity)%></td>
+  <%else%>
+  <td></td>
+  <%end%>
+	<td><%= link_to "show",order_path(order)%></td>
+  <td><%= link_to "delete",order_path(order),method: "delete"%></td>
+	</tr>
+<%end%>
+<%= link_to "add new order",new_order_path%>
+<%= link_to "checkout",new_master_order_path%>

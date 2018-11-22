@@ -1,0 +1,44 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require jquery-ui
+ *= require_self
+ *= require bootstrap.min
+ *= require style
+ *= require animate.min
+ *= require demo
+ *= require easy-autocomplete
+ *= require easy-autocomplete.themes
+ *= require font-awesome.min
+ *= require jquery.DonutWidget.min
+ *= require jquerysctipttop
+ *= require linearicons
+ *= require magnific-popup
+ *= require main
+ *= require nice-select
+ *= require set1
+ *= require set2
+ *= require simple-line-icons
+ *= require swiper.min
+ *= require themify-icons
+ *= require custom
+ *= require core-style
+ *= require owl.carousel
+ *= require themify-icons
+ *= require font-awesome.min
+ */
+
+.user-img{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;  
+}

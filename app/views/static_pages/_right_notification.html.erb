@@ -1,0 +1,38 @@
+<!--right notification start-->
+  <div class="right-notification">
+    <ul class="notification-menu">
+      <!-- <li>
+          <%#= form_with url: users_path, remote: true, method: :get, html: {class:" ",id:"form"} do |form| %>
+            <input type="text" class="form-control" name="keyword" placeholder="Search..." data-behavior="autocomplete">
+            <%#= submit_tag "Search", :name => nil, :class=>"btn btn-primary"%>
+          <%#end%>
+      </li> -->
+
+      <li>
+        <% if user_signed_in? %>
+          <a href="javascript:;" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <%= image_tag(current_user.image.url, alt:'Image', class: "user-img") if current_user.image? %>
+            <%= current_user.username %>
+          </a>
+          <ul class="dropdown-menu dropdown-usermenu purple pull-right">
+              <li><%= link_to 'Home', root_path %></li>
+                <li><%= link_to 'Favourite', favourites_path, remote: true, class: "showpartials" %></li>
+              <li><%= link_to 'Profile', profile_user_path(current_user), remote: true, class: "showpartials" %></li>
+              <li><%= link_to('Logout', destroy_user_session_path, method: :delete  ) %></li>
+          </ul>
+        <% end %>
+        <% if delivery_boy_signed_in? %>
+          <a href="javascript:;" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <img src="img/avatar-mini.jpg" alt=""><%= current_delivery_boy.username %>
+            <span class=" fa fa-angle-down"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-usermenu purple pull-right">
+              <li><%= link_to 'Home', root_path %></li>
+              <li><%= link_to 'Profile', profile_delivery_boy_path(current_delivery_boy), remote: true, class: "showpartials" %></li>
+              <li><%= link_to('Logout', destroy_delivery_boy_session_path, method: :delete  ) %></li>
+          </ul>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<!--right notification end-->

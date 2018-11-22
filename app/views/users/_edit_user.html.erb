@@ -1,0 +1,42 @@
+<div class="content clearfix">
+  <div class="form-group clearfix formbackground">
+
+    <%= form_for @user, :url=> url_for(controller: 'users', action: 'update'),class: 'form-horizontal', remote: true do |f| %>
+    
+      <div class="field">
+        <%= f.label :first_name, class: "control-label col-sm-2" %>
+        <%= f.text_field :firstname, autofocus: true, class: "control-label col-sm-10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :last_name, class: "control-label col-sm-2" %>
+        <%= f.text_field :lastname, class: "control-label col-sm-10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :user_name, class: "control-label col-sm-2" %>
+        <%= f.text_field :username, class: "control-label col-sm-10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, class: "control-label col-sm-2" %>
+        <%= f.email_field :email, autocomplete: "email", class: "control-label col-sm-10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :phone_no, class: "control-label col-sm-2" %>
+        <%= f.text_field :phoneno, class: "control-label col-sm-10" %>
+      </div>
+      <br>
+      
+      <div class="field">
+        <%= f.label :Profile_Pic, class: "control-label col-sm-2" %>
+        <%= f.file_field :image, class: "control-label col-sm-10" %>
+      </div> 
+
+      <div class="actions">
+        <%= f.submit "Update" %>
+      </div>
+    <% end %>
+  </div>
+</div>

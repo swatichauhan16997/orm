@@ -1,0 +1,78 @@
+<%= link_to restaurant_path(restaurant) do %>
+<div class="single-unique-product rest_<%= restaurant.id %>">
+  <%= image_tag(restaurant.image.url) if restaurant.image? %>
+  <% avg = restaurant.avg_rate %>
+  <%if avg.nil?%>
+  <div class="featured-rating-red">
+    <span>-</span>
+  </div>
+  <% else %>
+  <% if avg <= 2 && avg > 0 %>
+  <div class="featured-rating-red">
+    <span><%= avg.round(1) %></span>
+  </div>
+  <% elsif avg > 2 && avg <=3.5 %>
+  <div class="featured-rating-yellow">
+    <span><%= avg.round(1) %></span>
+  </div>
+  <% else %>
+  <div class="featured-rating-green">
+    <span><%= avg.round(1) %></span>
+  </div>
+  <% end %>
+  <% end %>
+  <div class="featured-title-box">
+    <h6>
+      <%= restaurant.name %>
+    </h6>
+    <ul>
+      <li>
+        <span class="icon-location-pin"></span>
+        <p><%= restaurant.address.addressline%><br><%= restaurant.address.area%>,<%= restaurant.address.city %></p>
+      </li>
+      <li>
+        <span class="icon-screen-smartphone"></span>
+        <p><%= restaurant.phone_no %></p>
+      </li>
+      <li>
+        <% if restaurant.offers %>
+          <% restaurant.offers.each do |off|%>
+         <% if off.end_date > Date.today %>
+        <span><i class="fa fa-certificate"></i></span>
+        <p><%= off.discount %> % off on <%= off.food_item.name %>.</p>
+        <p> Valid Till <%= off.end_date%></p><br>
+        <% end %>
+        <% end %>
+      <%end%>
+      </li>
+    </ul>
+    <a class="primary-btn" href="#" ></a>
+    <div class="bottom-icons">
+      <% if restaurant.restaurant_open? %>
+      <div class="open-now">OPEN NOW</div>
+      <%else%>
+      <div class="closed-now">CLOSED NOW</div>
+      <%end%>
+      <% if current_user %>
+      <% if current_user.favourite_restaurant?(restaurant.id) %>
+      <span class="heart_<%=restaurant.id%> fa fa-heart"></span>
+      <% else %>
+      <span class="heart_<%=restaurant.id%> fa fa-heart-o"></span>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+<script>
+  $(".heart_<%=restaurant.id%>").on('click',function(){
+    $.ajax({
+      url: "/add_restaurant_to_fav",
+      method: 'GET',
+      data: {
+        id: "<%= restaurant.id %>"
+      },
+      dataType: 'script'
+    });
+  });
+</script>

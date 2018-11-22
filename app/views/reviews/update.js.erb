@@ -1,0 +1,2 @@
+$("#review-<%=@review.id%>").hide();
+$("#review-list").prepend("<%= escape_javascript( render partial: 'reviews/review_content', locals: {review: @review} )%>");

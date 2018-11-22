@@ -1,0 +1,29 @@
+<% if favourite_foods.empty? %>
+    <h2>No FoodItems added To Favourite!</h2>
+<% else %>
+  <div class="container">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Restaurant</th>
+          <th>Food Item</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% favourite_foods.each_with_index do |favourite, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= link_to "#{favourite.fav_food.restaurant.name + ', ' + favourite.fav_food.restaurant.branch_name}", restaurant_path(favourite.fav_food.restaurant) %></td>
+            <td><%= link_to favourite.fav_food.name, food_item_path(favourite.fav_food) %></td>
+            <td><%= link_to favourite_path(favourite), method: :delete, data: { confirm: "Are you sure?"}, remote: true do %>
+                <i class="fa fa-heart"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Online-Restaurant-Management, <%= @delivery_boy.username %></h1>
+    <p>
+      Your account is created by admin<br>
+      <b>Your account Details: </b><br>
+       Firstname : <%= @delivery_boy.firstname %>.<br>
+       Lastname : <%= @delivery_boy.lastname %>.<br>
+       Username : <%= @delivery_boy.username %>.<br>
+       Password : <%= @delivery_boy.password %>.<br>
+       Phoneno : <%= @delivery_boy.phoneno %>.<br>     
+    </p>
+    <p>
+      To login to the site, just follow this link: <%= link_to 'Sign_in', new_delivery_boy_session_url %>
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

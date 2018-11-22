@@ -1,0 +1,64 @@
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#view">View</a></li>
+  <li><a data-toggle="tab" href="#edit">Edit</a></li>
+  <li><a data-toggle="tab" href="#password">Change Password</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="view" class="tab-pane fade in active">
+    <h3></h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          View Profile
+      </header>
+      <table class="table table-striped custom-table table-hover">
+        <!-- <tr>
+          <th>Profile pic</th>
+          <td><%#=image_tag(delivery_boy.image.url, alt:'Image', class: "user-img") if delivery_boy.image? %>
+          </td>
+        </tr> -->
+        <tr>
+          <th>Name</th>
+          <td><%= delivery_boy.firstname %></td>
+        </tr>
+        <tr>
+          <th>Username</th>
+          <td><%= delivery_boy.username %></td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td><%= delivery_boy.email %></td>
+        </tr>
+        <tr> 
+          <th>Status</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Phoneno</th>
+          <td><%= delivery_boy.phoneno %></td>
+        </tr>
+      </table>
+    </section>
+  </div>
+  
+  <div id="edit" class="tab-pane fade">
+    <h3></h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          Edit profile
+      </header>
+      <%= render partial: 'editprofile', locals: {delivery_boy: delivery_boy} %>
+    </section>
+  </div>
+
+  <div id="password" class="tab-pane fade">
+    <h3></h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          Change Password
+      </header>
+      <%= render partial: 'change_password' %>
+    </section>   
+  </div>
+
+</div>

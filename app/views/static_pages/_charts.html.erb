@@ -1,0 +1,111 @@
+<% if user_signed_in? %>
+<% if current_user.has_role? :super_admin %>
+  <div class="row">
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          Food Items
+          <span class="tools pull-right">
+            <a class="fa fa-repeat box-refresh" href="javascript:;"></a>
+            <a class="t-collapse fa fa-chevron-down" href="javascript:;"></a>
+            <a class="t-close fa fa-times" href="javascript:;"></a>
+          </span>
+        </header>
+        <div class="panel-body">
+          <div class="chartJS">
+            <%= column_chart charts_super_admin_food_items_path, xtitle: "Restaurant", ytitle: "Food Item", defer: true, messages: {empty: "No data"}, label: "Food Items",  legend: "bottom", discrete: true, refresh: 60 %>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          Orders
+          <span class="tools pull-right">
+            <a class="fa fa-repeat box-refresh" href="javascript:;"></a>
+            <a class="t-collapse fa fa-chevron-down" href="javascript:;"></a>
+            <a class="t-close fa fa-times" href="javascript:;"></a>
+          </span>
+        </header>
+        <div class="panel-body">
+          <div class="chartJS">
+            <%= column_chart charts_super_admin_orders_path, xtitle: "Week", ytitle: "Order", defer: true, messages: {empty: "No data"}, label: "Orders", legend: "bottom", refresh: 60 %>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          Revenue
+          <span class="tools pull-right">
+            <a class="fa fa-repeat box-refresh" href="javascript:;"></a>
+            <a class="t-collapse fa fa-chevron-down" href="javascript:;"></a>
+            <a class="t-close fa fa-times" href="javascript:;"></a>
+          </span>
+        </header>
+        <div class="panel-body">
+          <div class="chartJS">
+            <%= line_chart charts_super_admin_revenue_path, xtitle: "Week", ytitle: "Revenue", defer: true, messages: {empty: "No data"}, label: "Revenue", legend: "bottom", prefix: "$", refresh: 60 %>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          User Registrations
+          <span class="tools pull-right">
+            <a class="fa fa-repeat box-refresh" href="javascript:;"></a>
+            <a class="t-collapse fa fa-chevron-down" href="javascript:;"></a>
+            <a class="t-close fa fa-times" href="javascript:;"></a>
+          </span>
+        </header>
+        <div class="panel-body">
+          <div class="chartJS">
+            <%= line_chart charts_super_admin_new_users_path, xtitle: "Week", ytitle: "User", defer: true, messages: {empty: "No data"}, label: "Users", curve: false, legend: "bottom", refresh: 60 %>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+<% elsif current_user.has_role? :admin %>
+  <div class="row">
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          Orders
+          <span class="tools pull-right">
+            <a class="fa fa-repeat box-refresh" href="javascript:;"></a>
+            <a class="t-collapse fa fa-chevron-down" href="javascript:;"></a>
+            <a class="t-close fa fa-times" href="javascript:;"></a>
+          </span>
+        </header>
+        <div class="panel-body">
+          <div class="chartJS">
+            <%= column_chart charts_admin_orders_path, xtitle: "Week", ytitle: "Order", defer: true, messages: {empty: "No data"}, label: "Orders", legend: "bottom", refresh: 60 %>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          Revenue
+          <span class="tools pull-right">
+            <a class="fa fa-repeat box-refresh" href="javascript:;"></a>
+            <a class="t-collapse fa fa-chevron-down" href="javascript:;"></a>
+            <a class="t-close fa fa-times" href="javascript:;"></a>
+          </span>
+        </header>
+        <div class="panel-body">
+          <div class="chartJS">
+            <%= line_chart charts_admin_revenue_path, xtitle: "Week", ytitle: "Revenue", defer: true, messages: {empty: "No data"}, label: "Revenue", legend: "bottom", prefix: "$", refresh: 60 %>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+<% end %>
+<% end %>

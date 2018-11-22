@@ -1,0 +1,64 @@
+<!-- page head start-->
+<div class="page-head">
+  <h3>
+      Delivery Boys
+  </h3>
+  <span class="sub-title">Manage Delivery Boy - Edit, View, Delete </span>
+  <!--<span class="sub-title">Welcome to Static Table</span>-->
+  <div class="state-information">
+    <ol class="breadcrumb m-b-less bg-less">
+      <li><%= link_to 'Dashboard', static_pages_my_account_path %></li>
+      <li><%= link_to 'Manage Delivery Boy', delivery_boys_path, remote: true, class: "showpartials" %></li>
+    </ol>
+  </div>
+</div>
+<!-- page head end-->
+
+<!-- only super-admin can  -->
+
+<% if @delivery_boys == [] %>
+  <h3> No data</h3>
+<% else %>
+  <table class="table table-striped custom-table table-hover">
+    
+    <thead>
+      <th>No.</th>
+      <th>Name </th>
+      <th>Username </th>
+      <th>Email</th>
+      <th>Phoneno</th>
+      <th>Status</th>
+      <th>Action</th>
+    </thead>
+
+    <tbody>
+    <% $i = 1 %>
+    <% @delivery_boys.each do |delivery_boy| %>
+      <tr>
+        <td><%= $i %></td>
+        <td><%= delivery_boy.firstname + " " + delivery_boy.lastname %></td>
+        <td><%= delivery_boy.username %></td>
+        <td><%= delivery_boy.email %></td>
+        <td><%= delivery_boy.phoneno %></td>
+        <td>
+          <% if delivery_boy.is_active == true  %>
+            <label class="switch" id ="delivery_boy_status-<%= delivery_boy.id %>">
+              <%= render partial: "active_delivery_boy_status", locals: {delivery_boy: delivery_boy}%>
+            </label>
+          <% else %>
+            <label class="switch" id ="delivery_boy_status-<%= delivery_boy.id %>" >
+              <%= render partial: "inactive_delivery_boy_status", locals: {delivery_boy: delivery_boy}%>
+            </label>
+          <% end %>
+        </td>
+        <td colspan="3">
+          <%= link_to '', delivery_boy_path(delivery_boy), class: "btn btn-success btn-xs fa fa-check", remote: true %>
+          <%= link_to '',edit_delivery_boy_path(delivery_boy), class: "btn btn-primary btn-xs fa fa-pencil", remote: true  %>
+          <%= link_to '', delivery_boy_path(delivery_boy), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        </td>
+      </tr>
+      <% $i = $i+1 %>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

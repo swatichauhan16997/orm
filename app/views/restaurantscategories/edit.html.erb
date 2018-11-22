@@ -1,0 +1,16 @@
+<div class="field">
+  <h1>Edit restaurant category</h1>
+  <%= form_tag restaurantscategory_path, method: :patch, remote: true do %>
+    <p>Restaurant Name:
+    <%=@restaurant.branch_name%></p>
+    <%= label_tag "Category"%><br />
+    <%= collection_check_boxes :restaurant, :category_ids, Category.all, :id, :name do |b| %>
+      <div class="collection-check-box">
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+    <%= submit_tag "create", 'data-disable-with' => "Please wait.." %>
+  <%end%>
+</div>
+<%= link_to "back", restaurantscategories_path  %>

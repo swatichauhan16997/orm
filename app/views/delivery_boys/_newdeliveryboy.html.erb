@@ -1,0 +1,66 @@
+<!-- page head start-->
+  <div class="page-head">
+    <h3>
+        Add Delivery Boy
+    </h3>
+    <span class="sub-title">Create deliery boy</span>
+    <!--<span class="sub-title">Welcome to Static Table</span>-->
+    <div class="state-information">
+      <ol class="breadcrumb m-b-less bg-less">
+        <li><%= link_to 'Dashboard', static_pages_my_account_path %></li>
+        <li><%= link_to 'Add Delivery Boy', new_delivery_boy_path, remote: true, class: "showpartials" %></li>
+      </ol>
+    </div>
+  </div>
+<!-- page head end-->
+<div class="content clearfix">
+  <div class="form-group clearfix formbackground">
+
+  <%=form_for @delivery_boy, remote: true do |f| %>
+    <% if @delivery_boy.errors.any? %>
+      <%= render partial: 'shared/errors', locals: {resource: @delivery_boy} %>
+    <% end %>
+
+    <div class="field">
+      <label class="col-lg-2">First Name : </label>
+      <div class ="col-lg-10"> 
+        <%= f.text_field :firstname, autofocus: true, class: "form-input" %>
+      </div>
+    </div><br>
+
+    <div class="field">
+      <label class="col-lg-2">Last Name : </label>
+      <div class ="col-lg-10"> 
+        <%= f.text_field :lastname, class: "form-input"%>
+      </div>
+    </div><br>
+
+    <div class="field">
+      <label class="col-lg-2">User Name : </label>
+      <div class ="col-lg-10"> 
+        <%= f.text_field :username, class: "form-input" %>
+      </div>
+    </div><br>
+
+    <div class="field">
+      <label class="col-lg-2">Phone No : </label>
+      <div class ="col-lg-10"> 
+        <%= f.text_field :phoneno, class: "form-input" %>
+      </div>
+    </div><br>
+
+    <div class="field">
+      <label class="col-lg-2">Email: </label>
+      <div class ="col-lg-10"> 
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
+      </div>
+    </div><br>
+
+    <div class="actions">
+      <center>
+        <%= f.submit "Create Delivery Boy", class: "btn btn-default btn-lg" %>
+      </center>
+    </div>
+  <% end %>
+  </div>
+</div>

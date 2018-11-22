@@ -1,0 +1,42 @@
+<table class="table table-striped custom-table table-hover">
+  <tr>
+    <th>Name</th>
+    <td><%= @restaurant.name %></td>
+  </tr>
+  <tr>
+    <th>Phoneno</th>
+    <td><%= @restaurant.phone_no %></td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td><%= @restaurant.email %></td>
+  </tr>
+  <tr>
+    <th>Branchname</th>
+    <td><%= @restaurant.branch_name %></td>
+  </tr>
+  <tr> 
+    <th>Details</th>
+    <td><%= @restaurant.details %></td>
+  </tr>
+
+  <% if @restaurant.images != [] %>
+    <!-- for showing multiple images of restaurant -->
+    <% @restaurant.images.each_with_index do |image,index| %>
+      <tr>
+        <th>Image </th>
+        <td><%= image_tag(image.url, class: "user-img") %>
+      <%= link_to "Delete", restaurant_image_path(@restaurant, index), :method => :delete, data: { confirm: "Are you sure you want to delete this image?" }, remote: true %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+</table>
+
+<!-- for uploading more multiple images of restaurant -->
+Upload more images: <br>
+<%= form_for @restaurant, url: restaurant_images_path(@restaurant), method: :post, remote: true do |f|%>
+  <%= f.file_field :images, multiple: true, class: "form-input" %>
+  <%= f.submit "submit", class: "btn btn-default btn-lg" %>
+<% end %>

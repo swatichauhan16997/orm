@@ -1,0 +1,57 @@
+<section>
+  <%= render 'sidebar_left' %>
+  <!-- body content start-->
+  <div class="body-content" >
+    <!-- header section start-->
+    <div class="header-section">
+      <!--logo and logo icon start-->
+      <div class="logo dark-logo-bg hidden-xs hidden-sm">
+          <!--<i class="fa fa-maxcdn"></i>-->
+          <span class="brand-name"><%= link_to "FOODLE", static_pages_my_account_path%></span>
+      </div>
+      <!--logo and logo icon end-->
+      <div class="notification-wrap">
+        <!--right notification start(my_account,profile,logout)-->
+        <%= render 'right_notification' %>
+        <!--right notification end-->
+      </div>
+    </div>
+    <!-- header section end-->
+    <!--body wrapper start-->
+    <div class="wrapper">
+      <div class="dashboard">
+        <!-- page head start-->
+        <div class="page-head">
+          <h3>
+            Dashboard
+          </h3>
+          <span class="sub-title">Welcome to Online Food Ordering Management System</span>
+          <!--<span class="sub-title">Welcome to Static Table</span>-->
+          <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+              <li>Dashboard</li>
+            </ol>
+          </div>
+        </div>
+        <!-- page head end-->
+        <!--state overview start-->
+        <% unless delivery_boy_signed_in? %>
+        <%= render partial: 'state_overview' %>
+        <%= render partial: 'charts' %>
+
+        <% end %>
+
+
+        <!--state overview end-->
+
+      </div>
+      <div id = "show-partials">
+      </div>
+    </div>
+    <!--body wrapper end-->
+    <!-- Right Slidebar start -->
+    <%#= render 'right_sidebar'%>
+    <!-- Right Slidebar end -->
+  </div>
+  <!-- body content end-->
+</section>

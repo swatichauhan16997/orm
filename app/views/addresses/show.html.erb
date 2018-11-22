@@ -1,0 +1,31 @@
+<h1>Show address</h1>
+
+<p>
+  <strong>addressline :</strong>
+  <%= @address.addressline %>
+</p> 
+
+<p>
+  <strong>area:</strong>
+  <%= @address.area%>
+</p> 
+
+<p>
+  <strong> city:</strong>
+  <%= @address.city %>
+</p> 
+
+<p>
+  <strong> state:</strong>
+  <%= @address.state %>
+</p> 
+
+<p>
+  <strong> pincode:</strong>
+  <%= @address.pincode %>
+</p> 
+
+<div id="address">
+</div>
+
+<%= link_to "back", edit_user_path(current_user)%>

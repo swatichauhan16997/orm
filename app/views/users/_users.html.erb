@@ -1,0 +1,181 @@
+<!-- page head start-->
+  <div class="page-head">
+    <h3>
+        Manage User
+    </h3>
+    <span class="sub-title">Users- customers and admin(restaurant-owner)</span>
+    <!--<span class="sub-title">Welcome to Static Table</span>-->
+    <div class="state-information">
+      <ol class="breadcrumb m-b-less bg-less">
+        <li><%= link_to 'Dashboard', static_pages_my_account_path %></li>
+        <li><%= link_to 'Manage Users', users_path, remote: true, class: "showpartials" %></li>
+      </ol>
+    </div>
+  </div>
+  <!-- page head end-->
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#customer">Customer</a></li>
+  <li><a data-toggle="tab" href="#admin">Admin</a></li>
+  <li><a data-toggle="tab" href="#superadmin">Super-Admin</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="customer" class="tab-pane fade in active">
+    <h3></h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          Customers
+      </header>
+      <% cnt = 0 %>
+      <% @users.each do |u|
+          if u.has_role? :customer  
+            cnt = cnt + 1 
+          end 
+        end %>
+      <% if cnt == 0 %>
+        <h3>No Customers in your system</h3>
+      <% else %>
+        <table class="table table-striped custom-table table-hover">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Image</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th class="hidden-xs"> Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% $i = 1 %>
+            <% @users.each do |user| %>
+            <% if user.has_role? :customer %>
+            <tr>
+              <td><%= $i %></td>
+              <td><%= image_tag(user.image.url, alt:'Image', class: "user-img") if user.image? %></td>
+              <td><%= user.username %></td>
+              <td><%= user.email %></td>
+              <td>
+                <% if user_signed_in?  %>
+                  <% if user.is_active == true  %>
+                    <label class="switch" id ="user_status-<%= user.id %>">
+                    <%= render partial: "active_user_status", locals: {user: user}%>
+                    </label>
+                  <% else %>
+                    <label class="switch" id ="user_status-<%= user.id %>" >
+                    <%= render partial: "inactive_user_status", locals: {user: user}%>
+                    </label>
+                  <% end %>
+                <% end %>
+              </td>
+              <td class="hidden-xs">
+                <%= link_to '', user, class: "btn btn-success btn-xs fa fa-check", remote: true %>
+                <%= link_to "", edituser_user_path(user), class: "btn btn-primary btn-xs fa fa-pencil", remote: true %>
+                <%= link_to "", user_path(user), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+            </tr>
+            <% $i = $i+1 %>
+            <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </section>
+  </div>
+  
+  <div id="admin" class="tab-pane fade">
+    <h3></h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          Restaurant-owners
+      </header>
+      <% cnt = 0 %>
+      <% @users.each do |u|
+          if u.has_role? :admin 
+            cnt = cnt + 1 
+          end 
+        end %>
+      <% if cnt == 0 %>
+        <h3>No Restaurant-owners(admin) in your system</h3>
+      <% else %>
+        <table class="table table-striped custom-table table-hover">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th class="hidden-xs"> Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% $i = 1 %>
+            <% @users.each do |user| %>
+            <% if user.has_role? :admin %>
+            <tr>
+              <td><%= $i %></td>
+              <td><%= user.username %></td>
+              <td><%= user.email %></td>
+              <td>
+                <% if user_signed_in?  %>
+                  <% if user.is_active == true  %>
+                    <label class="switch" id ="user_status-<%= user.id %>">
+                    <%= render partial: "active_user_status", locals: {user: user}%>
+                    </label>
+                  <% else %>
+                    <label class="switch" id ="user_status-<%= user.id %>" >
+                    <%= render partial: "inactive_user_status", locals: {user: user}%>
+                    </label>
+                  <% end %>
+                <% end %>
+              </td>
+              <td class="hidden-xs">
+                <%= link_to '', user_path(user), class: "btn btn-success btn-xs fa fa-check" %>
+                <%= link_to "", edit_user_path(user), class: "btn btn-primary btn-xs fa fa-pencil" %>
+                <%= link_to "", user_path(user), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }%>
+              </td>
+            </tr>
+            <% $i = $i+1 %>
+            <%end%>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </section>    
+  </div>
+
+  <div id="superadmin" class="tab-pane fade">
+    <h3></h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          Super-Admin
+      </header>
+      <table class="table table-striped custom-table table-hover">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th class="hidden-xs"> Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% $i = 1 %>
+          <% @users.each do |user| %>
+          <% if user.has_role? :super_admin %>
+          <tr>
+            <td><%= $i %></td>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td class="hidden-xs">
+              <%= link_to '', user_path(user), class: "btn btn-success btn-xs fa fa-check" %>
+            </td>
+          </tr>
+          <% $i = $i+1 %>
+          <%end%>
+          <% end %>
+        </tbody>
+      </table>
+    </section>    
+  </div>
+</div>

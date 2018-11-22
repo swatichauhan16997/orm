@@ -1,0 +1,58 @@
+<h1>Reviews</h1>
+
+<% if @reviews == [] %>
+  <h3>No Review</h3>
+<% else %>
+  <table class="table table-striped custom-table table-hover">
+    <tr>
+      <th>No</th>
+      <th>Ratings</th>
+      <% if !current_user.has_role? :customer %>
+        <th>User</th>
+      <% end %>
+      <th>Restaurant</th>
+      <th>Feedback</th>
+      <% if current_user.has_role? :customer %>
+        <th>Action</th>
+      <% end %>
+    </tr>
+    <%@reviews.each_with_index do |review,index|%>
+      <tr>
+        <td><%= index+1%></td>
+        <td>
+          <% avg = review.restaurant.avg_rate%>
+          <%if avg.nil?%>
+            <div class="reserve-rating black">
+              <span>NO REVIEWS YET</span>
+            </div>
+          <% else %>
+            <% if avg <= 2 && avg > 0 %>
+              <div class="reserve-rating red">
+                <span><%= avg.round(1) %></span>
+              </div>
+            <% elsif avg > 2 && avg <=3.5 %>
+              <div class="reserve-rating yellow">
+                <span><%= avg.round(1) %></span>
+              </div>
+            <% else %>
+              <div class="reserve-rating">
+                <span><%= avg.round(1) %></span>
+              </div>  
+            <% end %>
+          <% end %>
+        </td>
+        <% if !current_user.has_role? :customer %>
+          <td><%= review.user.username %></td>
+        <% end %>
+        <td><%= link_to review.restaurant.name, restaurant_path(review.restaurant.id) %></td>
+        <td><%= review.comment %></td>
+        <% if current_user.has_role? :customer %>
+          <td class="hidden-xs">  
+              <%= link_to "", review_edit_review_path(review.id), class: "btn btn-primary btn-xs fa fa-pencil", remote: true %>
+              <%= link_to "", review_delete_review_path(review.id), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>  
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

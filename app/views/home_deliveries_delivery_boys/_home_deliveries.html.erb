@@ -1,0 +1,34 @@
+<%if @home_deliveries == []%>
+  <h1>No data found</h1>
+<%else%>
+<div id="customer" class="">
+    <h3>new</h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          Home Deliveries
+      </header>
+      <table class="table table-striped custom-table table-hover">
+        <thead>
+          <tr>
+            <th>master order</th>
+            <th>status</th>
+            <th>address</th>
+            <th class="hidden-xs"> Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <% @home_deliveries.each do |home_delivery|%>
+            <td><%= home_delivery.master_order.id%></td>
+            <td><%= home_delivery.status%></td>
+            <td><%= home_delivery.address.addressline%></td>
+            <td>
+            <%if home_delivery.status != 'delivered'%>
+            <%= link_to "change status", edit_home_delivery_path(home_delivery), remote: true %><%end%></td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </section>
+  </div> 
+  <%end%>

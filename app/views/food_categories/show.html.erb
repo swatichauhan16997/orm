@@ -1,0 +1,15 @@
+<h1>Show Category</h1>
+<p>
+  <strong>Restaurant name:</strong>
+  <%= Restaurant.find(@food_category.restaurant_id).name %>
+</p> 
+<p>
+<strong>Category name:</strong>
+  <%= Category.find(@food_category.category_id).name%>
+</p> 
+<p>
+  <strong>food category:</strong>
+  <%= @food_category.name %>
+</p> 
+
+<%= link_to "back", food_categories_path%>

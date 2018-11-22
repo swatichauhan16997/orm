@@ -1,0 +1,17 @@
+<h1>Show Restaurant category</h1>
+<p>
+  <strong>Branch name:</strong>
+  <strong><%=@restaurant.name%></strong>
+
+</p> 
+
+<p>
+  <ul>
+    <%counter=0%>
+    <% @category.each do |category| %>
+      <li><%=category.name%></li>
+      <%counter+=1%>
+    <%end%>
+  </ul>
+</p>
+<%= link_to 'Back' , restaurantscategories_path, remote: true, class: "showpartials" %>

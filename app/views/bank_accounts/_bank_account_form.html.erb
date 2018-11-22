@@ -1,0 +1,63 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= form_for @baccount do |f| %>
+      <div class="errors"></div>
+      <div class="row">
+
+        <div class="col-md-8">
+          <div class="form-group">
+            <%= f.label :Country %>
+            <%= f.text_field :country, value: "US", readonly: true %>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :currency %>
+            <%= f.text_field :currency, value: "USD", readonly: true %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6" id="routing_number_div">
+          <div class="form-group">
+            <%= f.label :RoutingNumber %>
+            <%= f.text_field :route_no, class: "form-control input-lg bank_account" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :AccountNumber %>
+            <%= f.text_field :number, class: "form-control input-lg bank_account" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :NameOnAccoount %>
+            <%= f.text_field :account_holder_name, class: "form-control input-lg bank_account" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :AccountType %>
+            <%= f.radio_button :account_holder_type, "Individual" %> Individual
+            <%= f.radio_button :account_holder_type, "Company"%> Company
+          </div>
+        </div>
+        <%= f.hidden_field :user_id, value: current_user.id -%>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.check_box :tos %>
+          <%= f.label :tos, "I agree to the terms and services" %>
+          <button class="btn btn-lg btn-block btn-primary btn-custom submit" type="submit">Add Bank Account</button>
+        </div>
+      </div>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    <% end %>
+  </div>
+</div>
+<a href="https://connect.stripe.com/express/oauth/authorize?client_id=
+ca_ChvkUOar4I0qbGOjf2ZnTUbYbIT7SaTZ&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcharges%2Fget_account&amp;state=state" class="connect-button"><span>Connect with Stripe</span></a>

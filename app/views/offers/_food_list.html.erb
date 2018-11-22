@@ -1,0 +1,3 @@
+<% ct =  defined?(food) ? food : Restaurant.where(user_id: current_user.id).first.food_items %>  
+<%=label_tag :food_item%>
+<%= select_tag "offer[food_item_id]", options_from_collection_for_select(ct, 'id', 'name') %>

@@ -1,0 +1,23 @@
+test:
+  override:
+    - echo "test"
+
+machine:
+  ruby:
+    version: 2.4.2
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app online-restaurant-management
+      - heroku pg:backups capture --app online-restaurant-management
+      - git push git@heroku.com:online-restaurant-management.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app online-restaurant-management
+      - heroku maintenance:off --app online-restaurant-management
+  staging:
+    branch: master
+    commands:
+      - heroku maintenance:on --app online-restaurant-management
+      - git push git@heroku.com:online-restaurant-management.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app online-restaurant-management
+      - heroku maintenance:off --app online-restaurant-management

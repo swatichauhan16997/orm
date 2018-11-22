@@ -1,0 +1,7 @@
+<%= link_to offer_path(offer) do %>
+  <div class="col-lg-3 col-md-6">
+    <div id="restaurant-item-<%=restaurant.id%>">
+      <%= render partial: "offers/offer_detail", locals: {offer: offer}%>
+    </div>
+  </div>
+<% end %>

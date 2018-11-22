@@ -1,0 +1,3 @@
+$(".bill-details").html("<%= escape_javascript(render partial: 'master_orders/bill_details', locals: {orders: @orders, master_order: @master_order})%>");
+$(".cart-dropdown").html("<%= escape_javascript(render partial: 'orders/order_cart', locals: {orders: @orders})%>");
+$(".cart_count").html("Cart(<%= @orders.count %>)");

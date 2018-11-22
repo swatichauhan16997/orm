@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  table_capacity: 1
+  availability: false
+  restaurant: one
+
+two:
+  table_capacity: 1
+  availability: false
+  restaurant: two

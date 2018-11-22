@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row topspace-lg">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="connect-button">
+        <%#= render 'layouts/messages' %>
+        <%#= render 'bank_account_form' %>
+        <a href="https://connect.stripe.com/express/oauth/authorize?client_id=
+        ca_ChvkUOar4I0qbGOjf2ZnTUbYbIT7SaTZ&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcharges%2Fget_account&amp;state=state" class="connect-button"><span>Connect with Stripe</span></a>
+        <!-- <div class="hint">
+          <p>
+            <i class="fa fa-info-circle"></i> Hint: use <strong>110000000</strong> and <strong>000123456789</strong> to simulate a successful transfer.
+          </p>
+          <p class="text-center">
+            <a href="https://stripe.com/docs/testing#managed-accounts" target="_blank">Other test bank account numbers</a>
+          </p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

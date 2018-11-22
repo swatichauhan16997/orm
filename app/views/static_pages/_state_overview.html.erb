@@ -1,0 +1,154 @@
+<!--state overview start-->
+<div class="row state-overview">
+  <% if current_user.has_role? :super_admin %>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel purple">
+        <div class="symbol">
+          <i class="fa fa-send"></i>
+        </div>
+        <div class="value white">
+          <h1 class="timer" data-from="0" data-to="320"
+              data-speed="1000">
+            <%= User.all.count%>
+          </h1>
+          <p>Users</p>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel">
+        <div class="symbol green-color">
+          <i class="fa fa-bullseye"></i>
+        </div>
+        <div class="value gray">
+          <h1 class="green-color timer" data-from="0" data-to="2345"
+              data-speed="3000">
+            <%= DeliveryBoy.all.count%>
+          </h1>
+          <p>Delivery-Boy</p>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel ">
+        <div class="symbol purple-color">
+          <i class="fa fa-tags"></i>
+        </div>
+        <div class="value gray">
+          <h1 class="purple-color timer" data-from="0" data-to="123"
+              data-speed="1000">
+            <%= Restaurant.all.count %>
+          </h1>
+          <p>Restaurants</p>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel green">
+        <div class="symbol ">
+          <i class="fa fa-cloud-upload"></i>
+        </div>
+        <div class="value white">
+          <h1 class="timer" data-from="0" data-to="432"
+              data-speed="1000">
+            <%= FoodItem.all.count %>
+          </h1>
+          <p>Food-items</p>
+        </div>
+      </section>
+    </div>
+  <% elsif current_user.has_role? :admin %>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel purple">
+        <div class="symbol">
+          <i class="fa fa-send"></i>
+        </div>
+        <div class="value white">
+          <h1 class="timer" data-from="0" data-to="320"
+              data-speed="1000">
+            <%= %>
+          </h1>
+          <p>Orders</p>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel">
+        <div class="symbol green-color">
+          <i class="fa fa-bullseye"></i>
+        </div>
+        <div class="value gray">
+          <h1 class="green-color timer" data-from="0" data-to="2345"
+              data-speed="3000">
+            <%= %>
+          </h1>
+          <p>Home Delivery</p>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel ">
+        <div class="symbol purple-color">
+          <i class="fa fa-tags"></i>
+        </div>
+        <div class="value gray">
+          <h1 class="purple-color timer" data-from="0" data-to="123"
+              data-speed="1000">
+            <%= (Restaurant.where("user_id": current_user.id)).count %>
+          </h1>
+          <p>Restaurants</p>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel green">
+        <div class="symbol ">
+          <i class="fa fa-cloud-upload"></i>
+        </div>
+        <div class="value white">
+          <h1 class="timer" data-from="0" data-to="432"
+              data-speed="1000">
+            <% item = 0
+              current_user.restaurants.each do |r|
+                item += r.food_items.count
+              end %>
+            <%= item %>
+          </h1>
+          <p>Food-items</p>
+        </div>
+      </section>
+    </div>
+  <% elsif current_user.has_role? :customer %>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel purple">
+        <div class="symbol">
+          <i class="fa fa-send"></i>
+        </div>
+        <div class="value white">
+          <h1 class="timer" data-from="0" data-to="320"
+              data-speed="1000">
+            <%= %>
+          </h1>
+          <p>Orders</p>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <section class="panel">
+        <div class="symbol green-color">
+          <i class="fa fa-bullseye"></i>
+        </div>
+        <div class="value gray">
+          <h1 class="green-color timer" data-from="0" data-to="2345"
+              data-speed="3000">
+            <%= %>
+          </h1>
+          <p>Home Delivery</p>
+        </div>
+      </section>
+    </div>
+  
+  <% end %>
+  
+</div>
+<!--state overview end-->

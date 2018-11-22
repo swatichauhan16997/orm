@@ -1,0 +1,95 @@
+<!-- Content page -->
+
+<section class="bg0 p-t-104 p-b-116">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<br><br>
+					<%= form_for @contact , class: 'form-horizontal' do |form| %>
+						<% if @contact.errors.any? %>
+  						<%= render partial: 'shared/errors', locals: {resource: @contact} %>
+						<% end %>
+					<h4 class="mtext-105 cl2 txt-center p-b-30">
+						Send Us A Message
+					</h4>
+					<br>
+					
+					<div class="bor8 m-b-20 how-pos4-parent">
+						<%= form.email_field :email, class: "stext-111 cl2 plh3 size-116 p-l-62 p-r-30", placeholder:'Your Email Address'%>
+					</div>
+					<br>
+
+					<div class="bor8 m-b-30">
+						<%= form.text_area :description, class: "stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25", placeholder: 'How Can We Help?' %><br>						
+					</div>
+					<br>
+
+					<%= form.submit 'Submit', class: "flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer"%>
+			<% end %>
+			</div>
+
+			<div class="col-md-6 col-sm-12 ">
+				<div class="flex-w w-full p-b-42">
+				<br><br>
+					<span class="fs-18 cl5 txt-center size-211">
+						<span class="icon-location-pin"></span><span class="mtext-110 cl2">Address</span>
+					</span>
+
+					<div class="size-212 p-t-2">
+
+						<p class="stext-115 cl1 size-213 p-t-18">
+							201, Shukan Complex, Thaltej-Shilaj Rd., Ahmedabad
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="flex-w w-full p-b-42">
+					<span class="fs-18 cl5 txt-center size-211">
+						<span class="icon-phone"></span>							<span class="mtext-110 cl2">
+							Lets Talk
+						</span>
+					</span>
+
+					<div class="size-212 p-t-2">
+
+
+						<p class="stext-115 cl1 size-213 p-t-18">
+							+91 9988776655
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="flex-w w-full">
+					<span class="fs-18 cl5 txt-center size-211">
+						<span class="icon-envelope"></span><span class="mtext-110 cl2">
+							Sale Support
+						</span>
+					</span>
+					<br>
+					<div class="size-212 p-t-2">
+						
+
+						<p class="stext-115 cl1 size-213 p-t-18">
+							online.restaurant.management12@gmail.com
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>	
+
+<!-- Back to top -->
+<div class="btn-back-to-top" id="myBtn">
+	<span class="symbol-btn-back-to-top">
+		<i class="zmdi zmdi-chevron-up"></i>
+	</span>
+</div>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-23581568-13');
+</script>

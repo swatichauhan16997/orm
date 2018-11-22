@@ -1,0 +1,32 @@
+<h1>Food-Items</h1>
+<% if @fooditems == [] %>
+  <h3>You haven't added any Food-item </h3>
+<% else %>
+  <table class="table table-striped custom-table table-hover">
+    <tr>
+      <th>Image</th>
+      <th>Restaurant Name</th>
+      <th>Category Name</th>
+      <th>Sub-Category Name</th>
+      <th>Food Name</th>
+      <th>Food Type</th>
+      <th>Price</th>
+      <th>Action  </th>
+    </tr>
+    <% @fooditems.each do |food|%>
+      <tr>
+        <td><%= image_tag(food.image.url, alt:'Image', class: "user-img") if food.image? %></td>
+        <td><%= food.restaurant.full_name %></td>
+        <td><%= food.category.name %></td>
+        <td><%= food.food_category.name %></td>
+        <td><%= food.name %></td>
+        <td><%= food.food_type %></td>
+        <td><%= food.price %></td>
+        <td>
+        <%= link_to "", food, class: "btn btn-success btn-xs fa fa-check", remote: true %>
+        <%= link_to "", edit_food_item_path(food), class: "btn btn-primary btn-xs fa fa-pencil", remote: true%>
+        <%= link_to "", food, class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      </tr>   
+    <%end%>
+  </table>
+<% end %>

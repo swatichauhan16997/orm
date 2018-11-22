@@ -1,0 +1,3 @@
+class CommissionSetting < ApplicationRecord
+  
+end

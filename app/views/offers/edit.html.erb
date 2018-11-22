@@ -1,0 +1,15 @@
+<h2>create offer</h2>
+<%= render partial: "form" %>
+<script type="text/javascript">
+  $("#offer_restaurant_id").on("change", function()
+  { 
+    $.ajax({
+      url: '../change_foodlist.js',
+      method: 'GET',
+      data: 
+      {
+        food: $(this).val()
+      }
+    });
+  });
+</script>

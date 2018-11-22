@@ -1,0 +1,29 @@
+<h1>Listing of category</h1>
+<table>
+  <tr>
+    <th class="col-md-2">Restaurant Name</th>
+    <th class="col-md-2">Category Name</th>
+    <th class="col-md-2">Sub-Category Name</th>
+    <th class="col-md-2">Food Name</th>
+    <th class="col-md-2">Food Type</th>
+    <th class="col-md-2">Price</th>
+  </tr>
+  <% @fooditems.each do |food|%>
+    <tr>
+      <td class="col-md-2"><%=food.restaurant.full_name %></td>
+      <td class="col-md-2"><%=food.category.name %></td>
+      <td class="col-md-2"><%=food.food_category.name %></td>
+      <td class="col-md-2"><%=food.name %></td>
+      <td class="col-md-2"><%=food.food_type %></td>
+      <td class="col-md-2"><%=food.price %></td>
+      <td class="col-md-4">
+      <%= link_to "show", food %>
+      <% if policy(food).edit? %>
+        <%= link_to "edit", edit_food_item_path(food)%>
+      <%end%>
+      <% if policy(food).destroy? %>
+        <%= link_to "delete",food, method: :delete, data: { confirm: 'Are you sure?' }%></td>
+      <%end%>
+    </tr>
+  <%end%>
+</table>

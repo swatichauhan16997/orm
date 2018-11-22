@@ -1,0 +1,170 @@
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+<!-- Start unique-feature Area -->
+<section class="unique-feature-area section-gap" id="unique">
+  <% if(@restaurants.empty? && @fooditems.empty?)%>
+  <div class="row d-flex justify-content-center">
+    <div class="menu-content pb-60 col-lg-10">
+      <div class="title text-center">
+        <h1 class="mb-10 text-white">Sorry</h1>
+        <h3 class="mb-10 text-white">We couldn't find the item you were searching for.</h3>
+      </div>
+    </div>
+  </div> 
+  <%else%> 
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="menu-content pb-60 col-lg-10">
+        <div class="title text-center">
+          <ul class="nav nav-pills">
+            <li><h1 class="mb-10 restaurant">Restaurants</h1></li>&nbsp;
+            <li><h1 class="mb-10 dish">Dishes</h1></li>
+          </ul>
+        </div>
+      </div>
+    </div>            
+    <div class="search-rest justify-content-center">
+      <% @restaurants.each do |restaurant| %>
+      <%= link_to restaurant_path(restaurant) do%>
+      <div class="col-lg-3 col-md-6">
+        <div class="single-unique-product rest_<%= restaurant.id %>">
+          <%= image_tag asset_path('dish-1.png')%>
+          <% avg = restaurant.avg_rate %>
+            <%if avg.nil?%>
+              <div class="featured-rating-red">
+                <span>-</span>
+              </div>
+            <% else %>
+              <% if avg <= 2 && avg > 0 %>
+                <div class="featured-rating-red">
+                  <span><%= avg.round(1) %></span>
+                </div>
+              <% elsif avg > 2 && avg <=3.5 %>
+                <div class="featured-rating-yellow">
+                  <span><%= avg.round(1) %></span>
+                </div>
+              <% else %>
+                <div class="featured-rating-green">
+                  <span><%= avg.round(1) %></span>
+                </div>  
+              <% end %>
+            <% end %>
+          <div class="featured-title-box">
+            <h6>  
+              <%= restaurant.name %>
+            </h6>
+            <p><span>$$$</span>$$</p>
+            <ul>
+              <li>
+                <span class="icon-location-pin"></span>
+                <p><%= restaurant.address.addressline%>,<%= restaurant.address.area%>,<%= restaurant.address.city %></p>
+              </li>
+            </ul>
+            <a class="primary-btn" href="#" ></a>
+            <div class="bottom-icons">
+              <%if restaurant.opening_time <= Time.now and restaurant.closing_time >= Time.now%>
+              <div class="open-now">OPEN NOW</div>
+              <%else%>
+              <div class="closed-now">CLOSED NOW</div>
+              <%end%>
+              <span class="ti-heart"></span>
+            </div>
+          </div>
+        </div>
+      </div>    
+      <%end%>                              
+      <%end%>
+    </div>
+    <div class="search-dish justify-content-center">
+      <% @fooditems.each do |food| %>
+      <%#= link_to restaurant_path(restaurant) do%>
+      <div class="col-lg-3 col-md-6">
+        <div class="single-unique-product food_<%= food.id %>">
+          <%= image_tag asset_path('dish-1.png')%>
+          <span class="featured-rating-orange">6.5</span>
+          <!-- <div class="desc"> -->
+            <div class="featured-title-box">
+              <h6>  
+                <%= food.name %>
+              </h6>
+
+              <p><span>$$$</span>$$</p>
+              <ul>
+                <li>
+                  <span class="icon-location-pin"></span>
+                  <p><%= food.restaurant.name %></p>
+                </li>
+              </ul>
+              <% if food.restaurant.restaurant_open? %>
+        <%= link_to "Add To Cart", orders_path(:food_item => food.id, restaurant_id:food.restaurant.id), method: "post",remote: true, class: "primary-btn"%>
+      <% else %>
+        <div class="popup" onclick="myFunction(<%= food.id %>)">
+          <a class="text-uppercase primary-btn">ADD TO CART</a>
+          <span class="popuptext" id="myPopup_<%=food.id%>">Closed Now</span>
+        </div>
+      <%end%>
+              <div class="bottom-icons">
+                <%#if restaurant.opening_time <= Time.now and restaurant.closing_time >= Time.now%>
+                <!-- <div class="open-now">OPEN NOW</div> -->
+                <%#else%>
+                <!-- <div class="closed-now">CLOSED NOW</div> -->
+                <%#end%>
+                <span class="ti-heart"></span>
+              </div>
+            </div>
+          </div>
+        </div>    
+        <%#end%>                              
+        <%end%>
+      </div>
+    </div>  
+  <%end%>
+  </section>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+    $('.search-dish').hide();
+    $('.restaurant').css("color", "red");
+    $(".restaurant").css("border-bottom","1px solid red")
+    $('.restaurant').click(function(){
+      $(".search-rest").show();
+      $(".search-dish").hide();
+      $(".restaurant").css("color", "red");
+      $('.dish').css("color", "#909090");
+      $(".dish").css("border-bottom","0px")
+      $(".restaurant").css("border-bottom","1px solid red")
+    });
+    $('.dish').click(function(){
+      $(".search-dish").show();
+      $(".search-rest").hide();
+      $('.dish').css("color", "red");
+      $(".dish").css("border-bottom","1px solid red")
+      $('.restaurant').css("color", "#909090");
+      $(".restaurant").css("border-bottom","0px")
+    });
+    <% @restaurants.each do |rest|%>
+    $('.rest_<%= rest.id %>').mouseenter(function(){
+      $('.rest_<%= rest.id %>').css("transform","scale(1.1)").css("border","1px solid #909090");
+    });
+    $('.rest_<%= rest.id %>').mouseleave(function(){
+      $('.rest_<%= rest.id %>').css("transform","scale(1)").css("border","0px");
+    }); 
+    <%end%>
+    <% @fooditems.each do |food|%>
+    $('.food_<%= food.id %>').mouseenter(function(){
+      $('.food_<%= food.id %>').css("transform","scale(1.1)").css("border","1px solid #909090");
+    });
+    $('.food_<%= food.id %>').mouseleave(function(){
+      $('.food_<%= food.id %>').css("transform","scale(1)").css("border","0px");
+    }); 
+      function myFunction(id) {
+    var popup = document.getElementById("myPopup_" + id);
+    popup.classList.add("show");
+    setInterval(function(){
+      popup.classList.remove("show");
+    },3000);
+  }
+    <%end%>
+  </script>

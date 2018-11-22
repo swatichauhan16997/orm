@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello <%= @user.name %>,</h1>
+    <p>
+      Your order with order id <%= @master_order_id %> is cancelled.<br>
+    </p>
+    <!-- Ordered Items -->
+    <p>
+      To login to the site, just follow this link: <%= @url = "http://localhost:3000/" %>
+    </p>
+    <p>Have a great day!</p>
+  </body>
+</html>

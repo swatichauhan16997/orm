@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OnlineRestaturantManagement</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'application/favicon' %>
+  </head>
+
+  <body>
+    <% flash.each do |message_type, message| %>
+          <div id ="flash" class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
+    <% if delivery_boy_signed_in? %>
+      <%= link_to 'logout', destroy_delivery_boy_session_path , method: :delete %>
+    <% end%>
+    <div class="header_app">
+    <%= render 'layouts/header'%>
+    </div>
+    <%= yield %>
+    <div class="header_app">
+    <%= render 'layouts/footer'%>
+    </div>
+  </body>
+</html>
+
+<script>
+$('document').ready(function() {
+    setTimeout(function() {
+      $('#flash').hide();
+      }, 2000);
+    });
+  $(document).ready(function(){
+    $.ajax({
+      type: 'GET',
+      url: '/orders/show_cart',
+      dataType: "script",
+      data: {
+
+      }
+
+    });
+  });
+
+</script>

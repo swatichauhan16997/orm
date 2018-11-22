@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quantity: 1
+  price: 1.5
+  restaurant: one
+  food_item: one
+  master_offer: one
+
+two:
+  quantity: 1
+  price: 1.5
+  restaurant: two
+  food_item: two
+  master_offer: two

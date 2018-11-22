@@ -1,0 +1,195 @@
+
+<div id="add_address"></div>
+
+<div id="wrapper">
+  <!-- ****** Checkout Area Start ****** -->
+  <div class="checkout_area section_padding_100">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-12 col-xs-12 ">
+
+            <div class="deldet">
+              <center><i class="icon-home" aria-hidden="true"></i>&nbsp;Delivery Details </center>
+            </div>
+            <center>
+              <div class="checkout_details_area mt-50 clearfix">
+                <div class="cart-page-heading">
+                  <h5>Billing Address</h5>
+                </div>
+                <%= form_for @home_delivery do |f|%>
+                <%= hidden_field_tag :master_order_id, @master_order.id %>
+                <% if current_user.addresses == [] %>
+                <p> Please Add Address </p>
+                <% else %>
+                <%#= f.collection_select :address_id, current_user.addresses.order(:id), :id, :addressline %>
+                <div id="address-list">
+                  <%= render partial: 'address_list' %>
+                </div>
+                <% end %>
+                <%= f.submit "create home delivery"%>
+                <%end%><br>
+                <!-- <%#= link_to "add new address", class: "btn add"%> -->
+                <center><a class="btn add">Add New Address</a></center>
+                <br><br>
+                <div class="addform">
+                  <%=form_for @address, url: create_address_path, remote: true do |form| %>
+                  <% if @address.errors.any? %>
+                  <div id="error_explanation">
+                    <h2>
+                      <%= pluralize(@address.errors.count, "error") %> prohibited
+                      this article from being saved:
+                    </h2>
+                    <ul>
+                      <% @address.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                  <% end %>
+                  <div class="row">
+                    <div class="col-12 mb-3">
+                      <%= form.label :addressline %><span>*</span>
+                      <%= form.text_field :addressline, class: "form-control" %>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <%= form.label :area %><span>*</span>
+                      <%= form.text_field :area, class: "form-control" %>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <%= form.label :pincode %>
+                      <%= form.text_field :pincode, class: "form-control" %>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <%= form.label :state %><span>*</span>
+                      <%= form.select :state, CS.states(:in),class: "custom-select d-block w-100"%>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div id='city-list' remote: true>
+                        <%= render partial: 'addresses/city_list',class: "custom-select d-block w-100"%> <%#= f.text_field :city %>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                      <%= form.submit "Add Address", class: "btn" %>
+                    </div>
+                  </div>
+                  <% end %>
+                </div>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ****** Checkout Area End ****** -->
+
+</div>
+<!-- /.wrapper end -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+
+
+  $(".add").click(function(){
+    $(".addform").slideToggle();
+  });
+
+  $("#master_order_order_type").on("change", function()
+  {
+
+    if(master_order_order_type.value == "home delivery")
+    {
+      $('.add_address').show();
+    }
+    else
+    {
+      $('.add_address').hide();
+    }
+  });
+  $('.btn-number').click(function(e){
+    e.preventDefault();
+
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+      if(type == 'minus') {
+
+        if(currentVal > input.attr('min')) {
+          input.val(currentVal - 1).change();
+        }
+        if(parseInt(input.val()) == input.attr('min')) {
+          $(this).attr('disabled', true);
+        }
+      } else if(type == 'plus') {
+
+        if(currentVal < input.attr('max')) {
+          input.val(currentVal + 1).change();
+        }
+        if(parseInt(input.val()) == input.attr('max')) {
+          $(this).attr('disabled', true);
+        }
+      }
+    } else {
+      input.val(0);
+    }
+  });
+  $('.input-number').focusin(function(){
+    $(this).data('oldValue', $(this).val());
+  });
+  $('.input-number').change(function() {
+
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+      $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+      alert('Sorry, the minimum value was reached');
+      $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+      $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+      alert('Sorry, the maximum value was reached');
+      $(this).val($(this).data('oldValue'));
+    }
+  });
+  $(document).ready(function(){
+    $("#address_state").on("change", function(){
+      $.ajax({
+        url: '/change_city',
+        method: 'GET',
+        data: {
+          state: $(this).val()
+        }
+      });
+    });
+  });
+  $(document).ready(function(){
+    $.ajax({
+      method : 'GET',
+      url: '/master_orders/bill_details',
+      data: {
+
+      }
+    });
+  });
+
+  $(".btn").on('click', function(){
+    $.ajax({
+      url: "/addresses_list",
+      method: 'GET',
+      dataType: 'script'
+    });
+  });
+</script>

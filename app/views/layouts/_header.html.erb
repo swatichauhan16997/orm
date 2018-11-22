@@ -1,0 +1,89 @@
+<div class="dark-bg sticky-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <%= link_to(image_tag('logo',style:"height:60px;width: 240px;"), root_path) %>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <nav class="collapse navbar-collapse" id="primary-menu">
+                <ul class="nav navbar-nav navbar-right">
+                 
+                  <% if user_signed_in? %>
+
+                  <% if current_user.has_role? "admin" && current_user.account_id == nil %>
+                  <%else%>
+                    <li class= "btn btn-outline-light top-btn" style="color: white;"> 
+                      <%= image_tag  current_user.image.url, style:"height:20px;width:20px;border-radius:50%;" if current_user.image?  %>
+                      <%= link_to('My Account', static_pages_my_account_path, class: " btn-outline-light top-btn" ) %>
+                    </li>&nbsp; &nbsp;
+                     <li> <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-light top-btn") %></li>&nbsp;&nbsp;
+                     <%end%>
+                  
+                  <% elsif delivery_boy_signed_in? %>
+
+                    <li><%= link_to 'My Account',static_pages_my_account_path, class: "btn btn-outline-light top-btn" %></li>
+                    <li> <%= link_to('Logout', destroy_delivery_boy_session_path, method: :delete, class: "btn btn-outline-light top-btn") %></li>
+
+                  <%else%>
+                    <li><%= link_to "SignUp",new_user_registration_path, class: "btn btn-outline-light top-btn" %></li>&emsp;
+                    <li><%= link_to "Login",new_user_session_path, class: "btn btn-outline-light top-btn" %></li>&emsp;
+                    <li><%= link_to "Log in-Delivery Boy", new_delivery_boy_session_path, class: "btn btn-outline-light top-btn" %></li>&emsp;
+                  <%end%> 
+                </ul>
+              </nav>
+            </ul>
+          </div>
+             
+          <%unless (params[:controller] == "master_orders" && params[:action] == "new")%>
+            <div class="dropdown">
+              <button class="btn btn-outline-light top-btn " type="button" data-toggle="dropdown"><span class="icon-basket search-icon"></span><i class="cart_count">
+                              
+              </i>
+                <span class="cart"></span>
+              </button>
+                 
+              <div class="cart-dropdown">
+                <div class="cart-list">
+                  <div class="product-widget">
+                    <div class="product-img">
+                      <img src="./img/product01.png" alt="">
+                    </div>
+                    <div class="product-body">
+                      <%if !(session[:order].nil?)%>
+                        <%@order=Order.where(:id=>session[:order].keys).includes(:food_item)%>
+                     
+                        <%if @order.count!=0%>
+
+                          <%@order.each do |i|%>
+                            <h3 class="product-name">
+                            Food Item::<%= i.food_item.name%><br></h3>
+                            quantity::<%= i.quantity%><br>
+                            Food price::<%= i.price%><br>
+                            <%= link_to "remove",order_path(i),method:"delete"%><br>
+                          <%end%>
+                        <%end%>
+                      <%end%>                          
+                    </div>
+                  </div>
+                </div>
+                      
+                <div class="cart-btns">
+                  <%=link_to "checkout",new_master_order_path if !(session[:order]).nil? %> 
+                  <% if user_signed_in? %>
+                    <%=link_to "my order",master_orders_path%>
+                  <%end%>
+                </div>  
+              </div>
+            </div>
+          <%end%>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("button").click(function(){
+    $(".cart-dropdown").slideToggle();
+  });
+</script>

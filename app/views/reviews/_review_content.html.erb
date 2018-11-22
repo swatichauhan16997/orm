@@ -1,0 +1,26 @@
+<div class="customer-img">
+  <img src="images/customer-img1.jpg" class="img-fluid" alt="#">
+  <span>
+    <%= review.user_reviews %> Reviews
+  </span>
+  <% if user_signed_in? %>
+  <% if current_user.id == review.user_id %>
+  <br>
+  <%= link_to "Edit", edit_review_path(review.id),remote: true%>
+  <br>
+  <%= link_to "Delete", review_path(review.id),method: :delete, remote: true%>
+  <% end %>
+  <% end %>
+</div>
+<div class="customer-content-wrap">
+  <div class="customer-content">
+    <div class="customer-review">
+      <%= User.find(review.user_id).username %>
+    </div>
+     <% rate = review.user_rating %>
+    <div class="customer-rating"><%= rate.round(1) if rate != nil %></div>
+  </div>
+  <p class="customer-text">
+    <%= review.comment %>
+  </p>
+</div>

@@ -1,0 +1,9 @@
+<div class="content clearfix">
+  <div class="form-group clearfix formbackground">
+    <%= form_for @master_order, remote: true do |f|%>
+      <%= f.label :status%>
+      <%= f.select(:order_status, @order_status) %>
+      <%= f.submit "edit status"%>
+    <% end %>
+  </div>
+</div>

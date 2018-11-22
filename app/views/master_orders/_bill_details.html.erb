@@ -1,0 +1,108 @@
+<div class="">
+  <div class="order-details-confirmation">
+    <div class="cart-page-heading">
+      <h5>Your Order</h5>
+      <p>The Details</p>
+    </div>
+
+    <ul class="order-details-form mb-4">
+      <%sum = 0%>
+      <%orders.each do |order| %>
+        <li>
+          <span><%=order.food_item.name%></span>
+          <div class="input-group">
+            <!--  <span class="input-group-btn">
+                <button type="button" class="btn btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+            </span> -->
+            <%=button_to " + ", orders_path(:food_item => order.food_item.id, restaurant_id:order.food_item.restaurant.id), method: "post",remote: true%>
+            <input type="text" name="quant[1]" class="form-control input-number" value="<%= order.quantity%>" min="1" max="10" size="">
+            <%=button_to " - ",order_remove_path(order),method:"delete",remote: true %>
+            <!--  <span class="input-group-btn">
+                <button type="button" class="btn btn-number" data-type="plus" data-field="quant[1]">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </span> -->
+          </div>
+          <span><%=order.price%></span>
+        </li>
+        <%sum = sum + order.price%>
+
+      <%end%>
+
+      <li><span>Subtotal</span> <span><%=sum%></span></li>
+      <li><span>Shipping</span> <span><%=orders.count * 5%></span></li>
+      <li><span>Total</span> <span><%=sum + (orders.count * 5) %></span></li>
+    </ul>
+    <%=form_for master_order do |f|%>
+      <div id="accordion" role="tablist" class="mb-4">
+        <div class="card">
+          <div class="card-header" role="tab" id="headingTwo">
+            <h6 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              <%= f.radio_button :payment_type, "cod", checked: true ,class: "payment-cod" %>
+              <%= f.label :cod, "Cash On Delivery"%>
+            </h6>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" role="tab" id="headingThree">
+            <h6 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <%= f.radio_button :payment_type, "card",class: "payment" %>
+                <%= f.label :credit, "Credit card / Debit card"%>
+            </h6>
+          </div>
+        </div>
+        <hr/>
+        <div class="card">
+          <div class="card-header" role="tab" id="headingTwo">
+            <h6 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <%= f.radio_button :order_type, "home delivery", class: "hd order_type", checked: true %><%= MasterOrder.order_types.keys[0] %>
+            </h6>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" id="headingTwo">
+            <h6 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <%= f.radio_button :order_type, "pickup", class: "order_type" %><%= MasterOrder.order_types.keys[1] %>
+            </h6>
+          </div>
+
+        </div>
+
+      </div>
+      <div id="submit-button">
+      <%= f.submit "Place Order",class: "btn karl-checkout-btn"%>
+      </div>
+    <%end%>
+  </div>
+</div>
+<div id="stripe-form" style="display: none">
+  <%= render partial: "master_orders/form_payment", locals: {order_ids: orders.ids }%>
+</div>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+    $('.payment').click(function(){
+        debugger;
+            $("#stripe-form").show();
+            $("#submit-button").hide();
+
+        });
+    $('.payment-cod').click(function(){
+        debugger;
+            $("#stripe-form").hide();
+            $("#submit-button").show();
+
+        });
+    
+    
+     });
+   
+
+</script>

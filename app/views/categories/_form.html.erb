@@ -1,0 +1,29 @@
+<!-- page head start-->
+<div class="page-head">
+  <h3>
+      Add Category
+  </h3>
+  <span class="sub-title">Create Category </span>
+  <!--<span class="sub-title">Welcome to Static Table</span>-->
+  <div class="state-information">
+    <ol class="breadcrumb m-b-less bg-less">
+      <li><%= link_to 'Dashboard', static_pages_my_account_path %></li>
+      <li><%= link_to 'Add', new_category_path, remote: true, class: "showpartials" %></li>
+    </ol>
+  </div>
+</div>
+<!-- page head end-->
+
+<div class="content clearfix">
+  <div class="form-group clearfix formbackground">
+    <%=form_for @category, remote: true, class: 'form-horizontal' do |form| %>
+      <% if @category.errors.any? %>
+        <%= render partial: 'shared/errors', locals: {resource: @category} %>
+      <% end %>
+      
+      <%=form.label :category_name, class: "control-label col-sm-2"%>
+      <%=form.text_field :name, class: "form-control col-sm-10" %><br>
+      <%=form.submit %>
+    <% end %>
+  </div>
+</div>

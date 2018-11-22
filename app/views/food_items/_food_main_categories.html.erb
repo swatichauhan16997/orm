@@ -1,0 +1,4 @@
+<%binding.pry%>
+<% st = defined?(restaurant) ? restaurant : current_user.restaurants.first %>
+<%= label_tag :category_id %><br>
+<%= select_tag "food_item[category_id]",  options_from_collection_for_select(st.categories, "id", "name") %>

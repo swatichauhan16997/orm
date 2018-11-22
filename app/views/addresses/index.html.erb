@@ -1,0 +1,23 @@
+<h1>Addresses</h1>
+<table border=1>
+  <tr>
+    <th>addressline</th>
+    <th>area</th>
+    <th>city</th>
+    <th>state</th>
+    <th>pincode</th>
+  </tr>
+
+  <% @addresses.each do |address| %>
+    <tr>
+      <td><%= address.addressline %></td>
+      <td><%= address.area %></td>
+      <td><%= address.city %></td>
+      <td><%= address.state %></td>
+       <td><%= address.pincode %></td>      
+      <td><%= link_to "show", address_path(address) %></td>
+      <td><%= link_to "edit", edit_address_path(address)%></td>
+      <td><%= link_to "delete", address_path(address), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+    </tr>
+  <%end%>
+</table>

@@ -1,0 +1,225 @@
+<!-- <h1>All Restaurants</h1> -->
+<%#= render @restaurants %>
+
+<!--============================= BOOKING =============================-->
+<div>
+  <!-- Swiper -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+
+      <div class="swiper-slide">
+        <%= image_tag asset_path('reserve-slide2.jpg'), class: "img-fluid"%>
+      </div>
+      <div class="swiper-slide">
+        <%= image_tag asset_path('reserve-slide1.jpg'), class: "img-fluid"%>
+      </div>
+      <div class="swiper-slide">
+        <%= image_tag asset_path('reserve-slide3.jpg'), class: "img-fluid"%>
+      </div>
+    </div>
+  </div>
+  <!--//END BOOKING -->
+  <!--============================= RESERVE A SEAT =============================-->
+  <section class="reserve-block">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><%= @restaurant.name %></h5>
+          <p><span>₹</span>100</p>
+          <p class="reserve-description">Innovative cooking, paired with fine wines in a modern setting.</p><br>
+          <p class="reserve-description">Delivery Time.</p>
+        </div>
+        <div class="col-md-6">
+          <div class="reserve-seat-block">
+            <% avg = @restaurant.avg_rate %>
+            <%if avg.nil?%>
+            <div class="reserve-rating black">
+              <span>NO REVIEWS YET</span>
+            </div>
+            <% else %>
+            <% if avg <= 2 && avg > 0 %>
+            <div class="reserve-rating red">
+              <span><%= avg.round(1) %></span>
+            </div>
+            <% elsif avg > 2 && avg <=3.5 %>
+            <div class="reserve-rating yellow">
+              <span><%= avg.round(1) %></span>
+            </div>
+            <% else %>
+            <div class="reserve-rating">
+              <span><%= avg.round(1) %></span>
+            </div>
+            <% end %>
+            <% end %>
+            <div class="review-btn">
+              <% if user_signed_in? %>
+              <% if current_user.has_role?(:customer)%>
+              <a href="#" class="btn btn-outline-danger review">WRITE A REVIEW</a>
+              <span><%= Review.count %> reviews</span>
+              <% end %>
+              <% else %>
+              <a  class="btn btn-outline-danger review2">WRITE A REVIEW</a>
+                <span class="popuptext" id="myPopup">You Need To Sign In.</span>
+              <span><%= Review.count %> reviews</span>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!--//END RESERVE A SEAT -->
+
+<!--============================= FOOD DETAILS =============================-->
+<section class="light-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 responsive-wrap">
+        <div class="food-items-list search-rest justify-content-center">
+          <%= render @fooditems %>
+        </div>
+      </div>
+      <div class="col-md-4 responsive-wrap">
+        <div class="contact-info">
+          <nav role='navigation'>
+            <ul id="menu-list">
+              <li><a>All</li>
+                <% unless @restaurant.food_categories.nil? %>
+                <% @restaurant.food_categories.each do |cat| %>
+                <li><a><%= cat.name %></a></li>
+                <% end %>
+                <% end %>
+              </ul>
+            </nav>
+          </div>
+        </div>
+</div>
+</div>
+</section>
+<!--//END FOOD DETAILS -->
+
+<!--============================= BOOKING DETAILS =============================-->
+<section class="light-bg booking-details_wrap">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 responsive-wrap">
+        <div class="booking-checkbox_wrap mt-4">
+          <%if user_signed_in? %>
+          <% if current_user.has_role?(:customer) %>
+          <center>
+            Service: <%= rating_for @restaurant, "service", enable_half: true, half_show: true, disable_after_rate: false%>
+            Food: <%= rating_for @restaurant, "food", enable_half: true, half_show: true, disable_after_rate: false %>
+          </center>
+          <br>
+          <%= form_for @review, url: reviews_path, method: :post, remote: true do |f|%>
+          <div class="customer-review_wrap">
+            <div class="customer-img">
+              <img src="images/customer-img1.jpg" class="img-fluid" alt="#">
+              <p><%= current_user.username %></p>
+            </div>
+            <div class="customer-content-wrap">
+              <div class="customer-content">
+                <div class="customer-review">
+                  <%= f.text_area :comment, size: "40x4", class: "comment" %>
+                </div>
+                <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
+                <div class="customer-review">
+                  <div class="submitd"><%= f.submit "SUBMIT", class: "submit" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%end%>
+          <%end%>
+          <%end%>
+          <hr>
+          <h5><%= @restaurant.reviews.count %> Reviews</h5>
+          <hr>
+          <div id="review-list">
+            <% if @reviews.present? %>
+            <%= render @reviews %>
+            <%end%>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--//END BOOKING DETAILS -->
+
+<script>
+$("#myPopup").hide();
+var swiper = new Swiper('.swiper-container', {
+  slidesPerView: 3,
+  slidesPerGroup: 3,
+  loop: true,
+  loopFillGroupWithBlank: true,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+if ($('.image-link').length) {
+  $('.image-link').magnificPopup({
+    type: 'image',
+    gallery: {
+      enabled: true
+    }
+  });
+}
+if ($('.image-link2').length) {
+  $('.image-link2').magnificPopup({
+    type: 'image',
+    gallery: {
+      enabled: true
+    }
+  });
+}
+
+$('.review').click(function(){
+  $('.comment').focus();
+  return false;
+})
+
+$('.review2').click(function(){
+  var popup = document.getElementById("myPopup");
+  $("#myPopup").show();
+})
+
+$("#menu-list").children().first().addClass("active");
+$("#menu-list li").click(function(){
+  $("#menu-list").children().removeClass("active");
+  $(this).addClass("active");
+  var pos = $("#menu-list li.active").index();
+  var cat = $("#menu-list li.active").text();
+  var restaurant = <%= @restaurant.id %>;
+  $.ajax({
+    url: "/food_by_category",
+    method: 'GET',
+    data: {
+      pos: pos,
+      cat: cat,
+      id: restaurant
+    },
+    dataType: 'script'
+  });
+})
+$(".submitd").on('click',function(){
+  // alert();
+  $.ajax({
+    url: "/add_review",
+    method: 'POST',
+    data: {
+      id: "<%= @restaurant.id %>"
+    },
+    dataType: 'script'
+  });
+});
+</script>

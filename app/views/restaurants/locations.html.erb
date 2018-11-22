@@ -1,0 +1,8 @@
+ <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <div class="row">
+    <h1>Locations</h1>
+    <% @addresses.each do |address| %>
+      <p><%= link_to address.name, address %></p>
+    <% end %>
+  </div>
+

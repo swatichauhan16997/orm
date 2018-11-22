@@ -1,0 +1,9 @@
+<div class="content clearfix">
+  <div class="form-group clearfix formbackground">
+    <%= form_for @home_delivery, remote: true do |f|%>
+      <%= f.label :status%>
+      <%= f.select(:status, HomeDelivery.statuses.keys.map {|status| [status.titleize,status]}) %>
+      <%= f.submit "edit status"%>
+    <% end %>
+  </div>
+</div>

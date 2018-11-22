@@ -1,0 +1,30 @@
+
+<%= form_tag charges_path(order_ids: order_ids) do %>
+  <article>
+  <% if flash[:error].present? %>
+    <div id="error_explanation">
+    <p><%= flash[:error] %></p>
+    </div>
+  <% end %>
+  <%= hidden_field_tag :p_type,"cod"%>
+  <%= hidden_field_tag :o_type,"home delivery"%>
+
+  </article>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+    data-description="A month's subscription"
+    data-amount=<%=Order.where(id: order_ids).map{|o| o.price * o.quantity}.sum * 100%>
+    data-locale="auto"></script>
+<% end %>
+ 
+ <script type="text/javascript">
+  $(document).ready(function(){
+    $(".payment").on("change, click", function(){
+      $("#p_type").val($("input[name = 'master_order[payment_type]']:checked").val());
+    });
+    $(".order_type").on("change, click", function(){
+      $("#o_type").val($("input[name = 'master_order[order_type]']:checked").val());
+    });
+  })
+
+ </script>

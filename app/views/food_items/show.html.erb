@@ -1,0 +1,36 @@
+<h1>Show food item</h1>
+
+<p>
+  <strong>Restaurant name :</strong>
+  <%= @fooditem.restaurant.name %>
+</p> 
+
+<p>
+  <strong>Category Name:</strong>
+  <%= @fooditem.category.name%>
+</p> 
+
+<p>
+  <strong>Sub-Category Name:</strong>
+  <%= @fooditem.food_category.name%>
+</p>
+
+<p>
+  <strong> Name:</strong>
+  <%= @fooditem.name %>
+</p> 
+
+<p>
+  <strong> Food Type:</strong>
+  <%= @fooditem.food_type %>
+</p> 
+
+<p>
+  <strong> Price:</strong>
+  <%= @fooditem.price %>
+</p> 
+
+<div id="fooditem">
+</div>
+
+<%= link_to "back", food_items_path%>

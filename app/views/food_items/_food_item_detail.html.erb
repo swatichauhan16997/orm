@@ -1,0 +1,70 @@
+<div class="single-unique-product">
+  <%= image_tag(food_item.image.url, height:"100%", width:"100%") if food_item.image?  %>
+  <%#= image_tag  food_item.image.url if food_item.image?  %>
+  <%#= image_tag asset_path("dish-1.png") %>
+  <span class="featured-rating-orange">6.5</span>
+  <div class="featured-title-box">
+    <h6>
+      <%= food_item.name %>
+    </h6>
+    <span> • </span>
+    <p>
+      <%if (food_item.offer.present?) && ((Date.today >= food_item.offer.start_date) && (Date.today <= food_item.offer.end_date))%>
+          <s><span>₹</span><%= food_item.price %></s>
+          &nbsp;&nbsp;
+          <span>₹</span><%= food_item.offer_price %>
+      <%else%>
+        <span>₹</span><%= food_item.price %>
+      <%end%>
+
+    </p>
+      <% if food_item.restaurant.restaurant_open? %>
+        <div class="popup" onclick="cartFunction(<%= food_item.id %>)">
+          <%= link_to "Add To Cart", orders_path(:food_item => food_item.id, restaurant_id:food_item.restaurant.id), method: "post",remote: true, class: "primary-btn"%>
+          <span class="popuptext" id="myPopup_<%=food_item.id%>">Added To Cart</span>
+        </div>
+      <% else %>
+        <div class="popup" onclick="myFunction(<%= food_item.id %>)">
+          <a class="text-uppercase primary-btn">ADD TO CART</a>
+          <span class="popuptext" id="myPopup_<%=food_item.id%>">Closed Now</span>
+        </div>
+      <%end%>
+    <div class="bottom-icons">
+        <% if current_user %>
+          <% if current_user.favourite_food?(food_item.id) %>
+            <span class="heart_<%=food_item.id%> fa fa-heart"></span>
+          <% else %>
+            <span class="heart_<%=food_item.id%> fa fa-heart-o"></span>
+          <% end %>
+        <%end%>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".heart_<%=food_item.id%>").on('click',function(){
+    $.ajax({
+      url: "/add_food_to_fav",
+      method: 'GET',
+      data: {
+        id: "<%= food_item.id %>"
+      },
+      dataType: 'script'
+    });
+  });
+
+  function myFunction(id) {
+    var popup = document.getElementById("myPopup_" + id);
+    popup.classList.add("show");
+    setInterval(function(){
+      popup.classList.remove("show");
+    },3000);
+  }
+  function cartFunction(id) {
+    var popup = document.getElementById("myPopup_" + id);
+    popup.classList.add("show");
+    setInterval(function(){
+      popup.classList.remove("show");
+    },3000);
+  }
+</script>

@@ -1,0 +1,13 @@
+<h1>Delivery Boy history</h1>
+<table>
+  <tr>
+    <th class="col-md-2">Name</th>
+    <th class="col-md-2">Status</th>
+  </tr>
+  <% @home_deliveries.each do |delivery|%>
+    <tr>
+    <td class="col-md-2"><%= delivery.master_order.user_id %></td>
+      <td class="col-md-2"><%= delivery.status %></td>
+    </tr>
+  <%end%>
+</table>

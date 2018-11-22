@@ -1,0 +1,3 @@
+$('#user-addresses').html("<%= escape_javascript(render partial: 'view_address', locals: { addresses: @addresses } ) %>");
+$("#edit_address").html("");
+$(".modal-backdrop").removeClass("modal-backdrop fade in");

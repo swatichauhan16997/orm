@@ -1,0 +1,5 @@
+<% if @restaurant.status %>
+  $('#status-<%= @restaurant.id %>').html("<%= escape_javascript(render partial: 'active_status', locals: {restaurant: @restaurant} ) %>");
+<%else%>
+  $('#status-<%= @restaurant.id %>').html("<%= escape_javascript(render partial: 'inactive_status', locals: {restaurant: @restaurant} ) %>");
+<%end%>

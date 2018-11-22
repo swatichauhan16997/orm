@@ -1,0 +1,36 @@
+<div id="customer" class="">
+  <section class="panel">
+    <header class="panel-heading head-border">
+        My Orders
+    </header>
+    <table class="table table-striped custom-table table-hover">
+      <thead>
+        <tr>
+          <th>master order</th>
+          <th>status</th>
+          <th>address</th>
+          <th class="hidden-xs"> Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      <% if @orders.count != 0 %>
+        <% @orders.each do |order|%>
+          <tr>
+            <td><%= order.order_datetime%></td>
+            <td><%= order.quantity%></td>
+            <td><%= order.food_item.name%></td>
+            <% if order.quantity!=nil%>
+              <td><%= (order.food_item.price)*(order.quantity)%></td>
+            <%else%>
+              <td></td>
+            <%end%>
+          </tr>
+        <%end%>
+      <% else %>
+        <h3>No orders Found</h3>
+      <%end%>
+      </tbody>
+    </table>
+  </section>
+</div> 

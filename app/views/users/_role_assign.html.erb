@@ -1,0 +1,45 @@
+<!-- page head start-->
+  <div class="page-head">
+    <h3>
+        Assign Role
+    </h3>
+    <span class="sub-title">Assign role to user</span>
+    <!--<span class="sub-title">Welcome to Static Table</span>-->
+    <div class="state-information">
+      <ol class="breadcrumb m-b-less bg-less">
+        <li><%= link_to 'Dashboard', static_pages_my_account_path %></li>
+        <li><%= link_to 'Assign Role', role_assign_users_path, remote: true, class: "showpartials" %></li>
+      </ol>
+    </div>
+  </div>
+<!-- page head end-->
+
+<div class="table ">
+  <div class="thead">
+    <div class="tr">
+      <div class="td">Sr. no.</div>
+      <div class="td">Username</div>
+      <div class="td">email</div>
+      <div class="td">Role</div>
+      <div class="td">Select New Role</div>
+      <div class="td">Action  </div>
+    </div>
+  </div>
+  <% $i = 1 %>
+  <% @users.each do |user| %>
+    <% if user.has_role? :super_admin %>
+    <% else %>
+      <% @roless = @roles.all.where.not(name: user.roles.first.name) %>
+      <%= form_tag assign_role_user_path(user),{remote: true, method: :patch, class: "tr"}  do %>
+        <span class="td"><%=  $i %></span>
+        <span class="td"><%=  user.username %></span>
+        <span class="td"><%=  user.email %></span>
+        <span class="td"><%=  user.roles.first.name %></span>
+        <span class="td"><%= select_tag 'role_id', options_from_collection_for_select(@roless, 'id', 'name'), prompt: user.roles.first.name %>
+        </span>            
+          <span class="td"><%= submit_tag 'change'%></span>
+      <%end%>
+      <% $i = $i+1 %>
+    <% end %>
+  <% end %>
+</div>

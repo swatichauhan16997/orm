@@ -1,0 +1,29 @@
+<!-- page head start-->
+<div class="page-head">
+  <h3>
+      Add Commission
+  </h3>
+  <span class="sub-title">Add Commission</span>
+  <!--<span class="sub-title">Welcome to Static Table</span>-->
+  <div class="state-information">
+    <ol class="breadcrumb m-b-less bg-less">
+      <li><%= link_to 'Dashboard', static_pages_my_account_path %></li>
+      <li><%= link_to 'Add', new_commission_setting_path, remote: true, class: "showpartials" %></li>
+    </ol>
+  </div>
+</div>
+<!-- page head end-->
+
+<div class="content clearfix">
+  <div class="form-group clearfix formbackground">
+    <%=form_for @commission, remote: true, class: 'form-horizontal' do |form| %>
+      <% if @commission.errors.any? %>
+        <%= render partial: 'shared/errors', locals: {resource: @commission} %>
+      <% end %>
+      
+      <%=form.label :Commission_percentage, class: "control-label col-sm-2"%>
+      <%=form.text_field :commission_percentage, class: "form-control col-sm-10" %><br>
+      <%=form.submit %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="field">
+  <h1>Delivery Boy for home Deliveries</h1>
+  <%= form_tag  home_deliveries_delivery_boys_path  do %>
+    <%= hidden_field_tag :home_delivery_id, @home_delivery.id%>
+    <%= label_tag "Category"%><br/>
+    <%= collection_select :delivery_boy_ids,:id, DeliveryBoy.order(:id).where(status:"available",is_active: true), :id,:username %>  
+    
+    <%= submit_tag "assign delivery boy"%>
+  <%end%>
+</div>
+

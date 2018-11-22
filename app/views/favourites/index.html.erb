@@ -1,0 +1,13 @@
+<h1>Favourites</h1><br>
+
+<h5>Restaurants</h5><br>
+
+<div id="restaurants-list">
+  <%= render partial: 'fav_restaurants', locals: { favourite_restaurants: @favourite_restaurants } %>
+</div>
+
+<h5>Food Items</h5>
+
+<div id="food-list">
+  <%= render partial: 'fav_foods', locals: { favourite_foods: @favourite_foods } %>
+</div>

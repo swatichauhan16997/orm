@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OnlineRestaturantManagement</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'admin', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="sticky-header">    
+    <%= yield %>
+  </body>
+
+<script type="text/javascript">
+
+    $(window).on("resize",function(){
+        var owl = $("#news-feed").data("owlCarousel");
+        owl.reinit();
+    });
+    $(document).ready(function(){
+    $('.showpartials').click(function()
+      { 
+        $(".dashboard").hide();
+      }
+    );
+  });
+
+</script>
+</html>

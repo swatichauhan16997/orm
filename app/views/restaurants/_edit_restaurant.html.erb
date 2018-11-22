@@ -1,0 +1,50 @@
+<h1><%= @restaurant.name %> Restaurant</h1>
+<%= form_for @restaurant, :url=> url_for(controller: 'restaurants', action: 'update'), remote: true do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name , autofocus: true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :phone_no %><br />
+  <%= f.text_field :phone_no %>
+  </div>
+
+  <div class="field">
+  <%= f.label :email %><br />
+  <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+  <%= f.label :opening_time %><br />
+  <%= f.time_select :opening_time, {ampm: true} %>
+  </div>
+
+  <div class="field">
+  <%= f.label :closing_time %><br />
+  <%= f.time_select :closing_time, {ampm: true} %>
+  </div>
+
+  <div class="field">
+  <%= f.label :delivery_types %><br />
+  <%= select_tag :delivery_types, options_for_select(Restaurant.types.map {|k, v| [k, v]}) %><br><br>
+  </div>
+
+  <div class="field">
+  <%= f.label :branch_name %><br />
+  <%= f.text_field :branch_name %>
+  <br><br>
+  </div>
+  
+  <div class="field">
+    <%= f.label :image %><br />
+    <%= f.file_field :image %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<br>  
+  <% end %>

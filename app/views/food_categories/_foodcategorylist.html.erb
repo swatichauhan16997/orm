@@ -1,0 +1,25 @@
+<h1>Listing of category</h1>
+<table class="table table-striped custom-table table-hover">
+  <tr>
+    <th>number</th>
+    <!-- <th>Restaurant name</th> -->
+    <th>Category name</th>
+    <th>Food category name</th> 
+    <th> Action </th>
+  </tr>
+  <%@food_categories.each_with_index do |food_category,index|%>
+    <tr>
+      <td><%= index+1%></td>
+      <!-- <td>
+        <%#=Restaurant.find(food_category.restaurant_id).name%>
+      </td> -->
+      <td><%=Category.find(food_category.category_id).name%></td>
+      <td><%=food_category.name %></td>
+      <td>
+        <%= link_to '', food_category_path(food_category), class: "btn btn-success btn-xs fa fa-check" %>
+        <%= link_to "", edit_food_category_path(food_category), class: "btn btn-primary btn-xs fa fa-pencil" %>
+        <%= link_to "", food_category_path(food_category), class: "btn btn-danger btn-xs fa fa-trash-o", method: :delete, data: { confirm: 'Are you sure?' }%>
+      </td>
+    </tr>
+  <%end%>
+</table>

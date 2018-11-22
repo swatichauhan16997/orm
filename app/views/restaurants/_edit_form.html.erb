@@ -1,0 +1,12 @@
+<div class="customer-review_wrap">
+ <div class="customer-img">
+ <%= form_for @review, url: add_review_path, remote: true do |f|%>
+  <span><%f.submit "Update"%></span><br>
+</div>
+<div class="customer-content-wrap">
+<p class="customer-text">
+    <%= f.text_field :comment, :value => review.comment %>
+  <%end%>  
+</p>
+</div>
+</div>

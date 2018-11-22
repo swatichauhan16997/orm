@@ -1,0 +1,27 @@
+<h1>Show offer</h1>
+<p>
+  <strong>Restaurant name:</strong>
+  <%= @offer.restaurant.full_name %>
+</p>
+<p>
+  <strong>food name:</strong>
+  <%= @offer.food_item.name %>
+</p>
+
+<p>
+<strong>Category</strong>
+  <%= @offer.food_item.category.name%>
+</p>
+<p>
+  <strong>food type:</strong>
+  <%= @offer.food_item.food_type %>
+</p>
+<p>
+  <strong>discount in(%):</strong>
+  <%= @offer.discount%>
+</p>
+<% if current_user && (current_user.has_role? :super_admin) %>
+  <%= link_to "back", offers_view_all_offers_path, remote: true%>
+<%else%>
+    <%= link_to "back", offers_path, remote: true%>
+<%end%>

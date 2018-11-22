@@ -1,0 +1,5 @@
+<% if @delivery_boy.is_active %>
+  $('#delivery_boy_status-<%= @delivery_boy.id %>').html("<%= escape_javascript(render partial: 'active_delivery_boy_status', locals: {delivery_boy: @delivery_boy} ) %>");
+<%else%>
+  $('#delivery_boy_status-<%= @delivery_boy.id %>').html("<%= escape_javascript(render partial: 'inactive_delivery_boy_status', locals: {delivery_boy: @delivery_boy} ) %>");
+<%end%>

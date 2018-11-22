@@ -1,0 +1,4 @@
+<% ct =  defined?(category) ? category : Restaurant.where(user_id: current_user.id).first.id %>
+<%= label_tag :category %><br />
+
+<%= select_tag "food_category[category_id]" ,options_from_collection_for_select(Restaurant.find(ct).categories, 'id', 'name',remote: true)%>

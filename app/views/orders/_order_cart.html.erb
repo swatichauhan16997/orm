@@ -1,0 +1,30 @@
+<div class="cart-list">
+  <div class="product-widget">
+    <div class="product-img">
+      <%#= image_tag(i.food_item.image.url, height:"100%", width:"100%") if i.food_item.image?  %>
+    </div>
+    <div class="product-body">
+      <%if !(session[:order].nil?)%>
+      <%#orders=Order.where(:id=>session[:order].keys).includes(:food_item)%>
+      <%if orders.count!=0%>
+      <%orders.each do |i|%>
+      <h3 class="product-name">
+        Food Item::<%= i.food_item.name%><br></h3>
+        quantity::<%= i.quantity%><br>
+        Food price::<%= i.price%><br>
+        <%= link_to "remove",order_path(i),method:"delete",remote: true%><br>
+        <%end%>
+        <%else%>
+        <h4>Cart is Empty!</h4>
+        <%end%>
+        <%end%>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-btns">
+   <%=link_to "checkout",new_master_order_path(orders: orders)%>
+   <% if user_signed_in? %>
+   <%=link_to "my order",master_orders_path%>
+   <%end%>
+ </div>

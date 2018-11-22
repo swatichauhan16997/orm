@@ -1,0 +1,101 @@
+<section>
+  <%= render 'static_pages/sidebar_left' %>
+  <!-- body content start-->
+  <div class="body-content" >
+    <!-- header section start-->
+    <div class="header-section">
+      <!--logo and logo icon start-->
+      <div class="logo dark-logo-bg hidden-xs hidden-sm">
+        <a href="index-2.html">
+          <!--<i class="fa fa-maxcdn"></i>-->
+          <span class="brand-name">Food-Ordering</span>
+        </a>
+      </div>
+      <!--logo and logo icon end-->
+      <div class="notification-wrap">
+        <!--left notification start-->
+        <div class="left-notification">
+          <ul class="notification-menu">
+            <!--notification info start-->
+            <li>
+              <a href="javascript:;" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="badge bg-warning">3</span>
+              </a>
+              <div class="dropdown-menu dropdown-title ">
+                <div class="title-row">
+                  <h5 class="title yellow">
+                    You have 3 New Notification
+                  </h5>
+                  <a href="javascript:;" class="btn-warning btn-view-all">View all</a>
+                </div>
+                <div class="notification-list-scroll sidebar">
+                  <div class="notification-list mail-list not-list">
+                    <a href="javascript:;" class="single-mail">
+                      <span class="icon bg-primary">
+                      <i class="fa fa-envelope-o"></i>
+                      </span>
+                      <strong>New User Registration</strong>
+                      <p>
+                        <small>Just Now</small>
+                      </p>
+                      <span class="un-read tooltips" data-original-title="Mark as Read" data-toggle="tooltip" data-placement="left">
+                      <i class="fa fa-circle"></i>
+                      </span>
+                    </a>
+                    <a href="javascript:;" class="single-mail">
+                      <span class="icon bg-success">
+                      <i class="fa fa-comments-o"></i>
+                      </span>
+                      <strong> Private message Send</strong>
+                      <p>
+                        <small>30 Mins Ago</small>
+                      </p>
+                      <span class="un-read tooltips" data-original-title="Mark as Read" data-toggle="tooltip" data-placement="left">
+                      <i class="fa fa-circle"></i>
+                      </span>
+                    </a>
+                    <a href="javascript:;" class="single-mail">
+                      <span class="icon bg-warning">
+                      <i class="fa fa-warning"></i>
+                      </span> Application Error
+                      <p>
+                        <small> 2 Days Ago</small>
+                      </p>
+                      <span class="read tooltips" data-original-title="Mark as Unread" data-toggle="tooltip" data-placement="left">
+                      <i class="fa fa-circle-o"></i>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!--notification info end-->
+          </ul>
+        </div>
+        <!--left notification end-->
+        <!--right notification start(my_account,profile,logout)-->
+        <!--right notification end-->
+      </div>
+    </div>
+    <!-- header section end-->
+    <!--body wrapper start-->
+    <div class="wrapper">
+      <div id = "show-partials">
+          <%= render partial: "form", locals: {category: @category} %>
+
+      </div>
+    </div>
+    <!--body wrapper end-->
+    <!-- Right Slidebar start -->
+    <%#= render 'right_sidebar'%>
+    <!-- Right Slidebar end -->
+  </div>
+  <!-- body content end-->
+</section>
+
+
+
+
+<div id="users-page">
+</div>

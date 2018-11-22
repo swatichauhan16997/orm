@@ -1,0 +1,272 @@
+<!-- sidebar left start-->
+<div class="sidebar-left">
+  <!--responsive view logo start-->
+  <div class="logo dark-logo-bg visible-xs-* visible-sm-*">
+      <a href="index-2.html">
+          <!--<i class="fa fa-maxcdn"></i>-->
+          <span class="brand-name"></span>
+      </a>
+  </div>
+  <!--responsive view logo end-->
+
+  <div class="sidebar-left-info">
+    <!-- visible small devices start-->
+    <div class=" search-field">  </div>
+    <!-- visible small devices end-->
+
+    <!--sidebar nav start-->
+    <ul class="nav nav-pills nav-stacked side-navigation">
+      <li class="listyle"><span><%= link_to 'Dashboard', static_pages_my_account_path , class: "fa fa-home"%> </span></a></li>
+
+      <% if user_signed_in? %>
+        <% if current_user.has_role? :super_admin %>
+
+          <li class="listyle" data-toggle="collapse" data-target="#user" >
+            <i class="fa fa-users"></i>  <span>Users > </span>
+          </li>
+          <div id="user" class="collapse">
+            <ul class="">
+              <!-- <li><div class= "users_add" >Add</div></li> -->
+              <% if CommissionSetting.all.count==1%>
+              <% else %>
+              <li><%= link_to 'Add' , new_user_path, remote: true, class: "showpartials libg" %></li>
+              <% end %>
+              <li><%= link_to 'Manage', users_path, remote: true, class: "showpartials libg" %></li>
+              <li><%= link_to 'Assign Role', role_assign_users_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#db">
+            <i class="fa fa-user"></i> <span>Delivery-Boy > </span></a>
+          </li>
+          <div id="db" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Add', new_delivery_boy_path, remote: true, class: "showpartials libg" %></li>
+                <li ><%= link_to 'Manage', delivery_boys_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#Category" >
+            <i class="fa fa-tasks"></i>  <span>Category > </span>
+          </li>
+          <div id="Category" class="collapse">
+            <ul class="">
+              <li><%= link_to 'Add', new_category_path, remote: true, class: "showpartials libg" %></li>
+              <li><%= link_to 'Manage', categories_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#fCategory" >
+            <i class="fa fa-tasks"></i>  <span>Food-Category > </span>
+          </li>
+          <div id="fCategory" class="collapse">
+            <ul class="">
+              <li><%= link_to 'Add', new_food_category_path, remote: true, class: "showpartials libg" %></li>
+              <li><%= link_to 'Manage', food_categories_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#rest1">
+            <i class="fa fa-cutlery"></i>  <span> Restaurants > </span>
+          </li>
+          <div id="rest1" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Add' , new_restaurant_path, remote: true, class: "showpartials libg" %></li>
+                <li><%= link_to "Manage",restaurant_list_restaurants_path, remote: true, class: "showpartials libg" %>
+                </li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#fi">
+            <i class="fa fa-coffee"></i>  <span> Food-items > </span>
+          </li>
+          <div id="fi" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Add', new_food_item_path, remote: true, class: "showpartials libg" %></li>
+                <li><%= link_to 'Manage', food_items_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#order">
+            <i class="fa fa-shopping-cart"></i>  <span>Order >  </span>
+          </li>
+          <div id="order" class="collapse">
+            <ul class="">
+               <li><%= link_to 'Order List', master_orders_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+
+          <li class="listyle" data-toggle="collapse" data-target="#myorder">
+            <i class="fa fa-coffee"></i>  <span> my orders > </span>
+          </li>
+          <div id="myorder" class="collapse">
+            <ul class="">
+                <li><%= link_to 'my orders', my_orders_master_orders_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+
+          <li class="listyle" data-toggle="collapse" data-target="#Offers">
+            <i class="fa fa-reorder"></i>  <span> Offers > </span>
+          </li>
+          <div id="Offers" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Manage', offers_view_all_offers_path, remote: true, class: "showpartials libg " %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#re">
+            <i class="fa fa-pencil-square-o"></i>  <span> Review > </span>
+          </li>
+          <div id="re" class="collapse">
+            <ul class="">
+              <li><%= link_to 'Manage', reviews_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#hd">
+            <i class="fa fa-road"></i>  <span>Home-Delivery > </span>
+          </li>
+          <div id="hd" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Manage',home_deliveries_delivery_boys_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+          <li class="listyle" data-toggle="collapse" data-target="#commission" >
+            <i class="fa fa-users"></i>  <span>Commission > </span>
+          </li>
+          <div id="commission" class="collapse">
+            <ul class="">
+              <!-- <li><div class= "users_add" >Add</div></li> -->
+              <li><%= link_to 'Add' , new_commission_setting_path, remote: true, class: "showpartials libg" %></li>
+              <li><%= link_to 'Manage', commission_settings_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+
+        <% elsif current_user.has_role? :admin %>
+          <li class="listyle" data-toggle="collapse" data-target="#cat">
+            <i class="fa fa-tasks"></i>  <span>Category > </span>
+          </li>
+          <div id="cat" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Add',  new_restaurantscategory_path , remote: true, class: "showpartials libg" %></li>
+                <li><%= link_to 'Manage',  restaurantscategories_path , remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#rest">
+            <i class="fa fa-cutlery"></i>  <span> Restaurants > </span>
+          </li>
+          <div id="rest" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Add' , new_restaurant_path, remote: true, class: "showpartials libg" %></li>
+                <li><%= link_to "Manage",restaurant_list_restaurants_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#foodit">
+            <i class="fa fa-coffee"></i><span>Food-items > </span>
+          </li>
+          <div id="foodit" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Add', new_food_item_path, remote: true, class: "showpartials libg" %></li>
+                <li><%= link_to 'Manage', food_items_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#ord">
+            <i class="fa fa-shopping-cart"></i>  <span>Order > </span>
+          </li>
+          <div id="ord" class="collapse">
+            <ul class="">
+               <li><%= link_to 'Order List',  master_orders_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+
+          <li class="listyle" data-toggle="collapse" data-target="#myorder">
+            <i class="fa fa-coffee"></i>  <span> my orders > </span>
+          </li>
+          <div id="myorder" class="collapse">
+            <ul class="">
+                <li><%= link_to 'my orders', my_orders_master_orders_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+
+          <li class="listyle" data-toggle="collapse" data-target="#Offer">
+            <i class="fa fa-reorder"></i>  <span> Offers > </span>
+          </li>
+          <div id="Offer" class="collapse">
+            <ul class="">
+              <li><%= link_to 'Add', new_offer_path, remote: true, class: "showpartials libg" %></li>
+                <li><%= link_to 'Manage', offers_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#revi">
+            <i class="fa fa-pencil-square-o"></i>  <span> Review > </span>
+          </li>
+          <div id="revi" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Manage', reviews_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#hod">
+            <i class="fa fa-road"></i>  <span>Home-Delivery > </span>
+          </li>
+          <div id="hod" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Add' %></li>
+                <li><%= link_to 'Manage' %></li>
+            </ul>
+          </div>
+
+        <% elsif current_user.has_role? :customer %>
+          <li class="listyle" data-toggle="collapse" data-target="#order1">
+            <i class="fa fa-shopping-cart"></i>  <span>Order > </span>
+          </li>
+          <div id="order1" class="collapse">
+            <ul class="">
+               <li><%= link_to 'Order List', master_orders_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#hd1">
+            <i class="fa fa-road"></i>  <span>Home-Delivery > </span>
+          </li>
+          <div id="hd1" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Manage',home_deliveries_delivery_boys_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+
+          <li class="listyle" data-toggle="collapse" data-target="#review1">
+            <i class="fa fa-pencil-square-o"></i>  <span> Reviews > </span>
+          </li>
+          <div id="review1" class="collapse">
+            <ul class="">
+                <li><%= link_to 'Manage', reviews_path, remote: true, class: "showpartials libg" %></li>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
+      <% if delivery_boy_signed_in? %>
+        <li class="listyle" data-toggle="collapse" data-target="#hod1">
+          <i class="fa fa-laptop"></i>  <span>Home Delivery > </span>
+        </li>
+        <div id="hod1" class="collapse">
+          <ul class="">
+            <li><%= link_to 'home delivery List',   get_home_delivery_home_deliveries_delivery_boys_path, remote: true, class: "showpartials libg" %></li>
+          </ul>
+        </div>
+
+      <% end %>
+    </ul>
+    <!--sidebar nav end-->
+  </div>
+</div>
+<!-- sidebar left end-->

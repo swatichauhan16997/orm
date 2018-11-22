@@ -1,0 +1,55 @@
+<!-- <h1>All Restaurants</h1> -->
+<%#= render @restaurants %>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+<!-- Start unique-feature Area -->
+<section class="unique-feature-area section-gap" id="index">
+    <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="menu-content pb-60 col-lg-10">
+        <div class="title text-center">
+         <h1 class="mb-10 restaurant">Restaurants</h1> 
+        </div>
+      </div>
+    </div>            
+    <div class="search-rest justify-content-center">
+      <%= render @restaurants%>
+    </div>
+  </div>  
+  </section>
+
+      <!-- start footer Area -->    
+      <footer class="main-block dark-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="copyright">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              <p>Copyright &copy; 2018 Listing. All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              <ul>
+                <li><a href="#"><span class="ti-facebook"></span></a></li>
+                <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
+                <li><a href="#"><span class="ti-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+    
+    <% @restaurants.each do |rest|%>
+    $('.rest_<%= rest.id %>').mouseenter(function(){
+      $('.rest_<%= rest.id %>').css("border","1px solid #909090");
+    });
+    $('.rest_<%= rest.id %>').mouseleave(function(){
+      $('.rest_<%= rest.id %>').css("border","0px");
+    }); 
+    <%end%>
+</script>

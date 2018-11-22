@@ -1,0 +1,47 @@
+<% if @master_orders == [] %>
+<h3>No Orders</h3>
+<%else%>
+  <div id="customer" class="">
+    <h3>new</h3>
+    <section class="panel">
+      <header class="panel-heading head-border">
+          My orders
+      </header>
+      <table class="table table-striped custom-table table-hover">
+        <thead>
+          <tr>
+            <th>master order</th>
+            <th>Order Type</th>
+            <th>Order Status</th>
+            <th>Payment Status</th>
+            <th>Payment Type</th>
+            <th>date</th>
+            <th></th>
+            <th class="hidden-xs"> Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @master_orders.each do |m|%>
+            <tr>
+            <td><%= m.total.to_i%></td>
+            <td><%= m.order_type%></td>
+            <td><%= m.order_status%></td>
+            <td><%= m.payment_status%></td>
+            <td><%= m.payment_type%></td>
+            <td><%= m.created_at%></td>
+            <td>
+            
+            <%if current_user.has_role? "admin"%>
+            <%if m.order_type == 'pickup' && m.payment_type == 'cod' && m.order_status != 'completed'%>
+            <%= link_to "change order status", edit_master_order_path(m), remote: true%>
+            <%end%>
+            <%end%>
+          </td>
+        </tr>
+        <%end%>
+
+      </tbody>
+    </table>
+  </section>
+</div>
+<%end%>
